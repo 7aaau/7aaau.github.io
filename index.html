@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MDC - 曙光市战术终端</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0e1116;
+  --panel:#141922;
+  --line:#ff6a00;
+  --accent:#ff6a00;
+  --text:#e6e6e6;
+  --sub:#8a8f99;
+  --grid:rgba(255,255,255,0.03);
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  background:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg,var(--grid) 1px, transparent 1px),
+    var(--bg);
+  background-size:40px 40px;
+  font-family:'Rajdhani','Noto Sans SC',sans-serif;
+  color:var(--text);
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:40px 20px;
+}
+
+.wrapper{
+  width:1300px;
+  max-width:100%;
+  background:var(--panel);
+  position:relative;
+  border-left:4px solid var(--accent);
+  box-shadow:0 0 80px rgba(255,106,0,0.08);
+}
+
+.topbar{
+  padding:20px 30px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid rgba(255,255,255,0.05);
+}
+
+.brand{
+  font-size:22px;
+  font-weight:700;
+  letter-spacing:3px;
+}
+
+.status{
+  font-size:14px;
+  color:var(--accent);
+  letter-spacing:2px;
+}
+
+.content{
+  display:grid;
+  grid-template-columns:360px 1fr;
+  gap:50px;
+  padding:50px;
+}
+
+.left{
+  border-right:1px solid rgba(255,255,255,0.05);
+  padding-right:40px;
+}
+
+.codename{
+  font-size:48px;
+  font-weight:700;
+  letter-spacing:4px;
+  margin-bottom:10px;
+}
+
+.role{
+  font-size:16px;
+  color:var(--sub);
+  margin-bottom:30px;
+}
+
+.meta{
+  margin-bottom:20px;
+}
+
+.meta span{
+  display:block;
+  font-size:13px;
+  color:var(--sub);
+}
+
+.meta strong{
+  font-size:16px;
+  letter-spacing:1px;
+}
+
+.badge{
+  margin-top:25px;
+  padding:8px 0;
+  border-top:1px solid rgba(255,255,255,0.05);
+  border-bottom:1px solid rgba(255,255,255,0.05);
+  font-size:13px;
+  letter-spacing:2px;
+  color:var(--accent);
+}
+
+.right section{
+  margin-bottom:40px;
+}
+
+.section-title{
+  font-size:14px;
+  letter-spacing:3px;
+  color:var(--accent);
+  margin-bottom:20px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:25px 40px;
+}
+
+.item span{
+  display:block;
+  font-size:12px;
+  color:var(--sub);
+}
+
+.item strong{
+  font-size:16px;
+}
+
+.bar{
+  height:6px;
+  background:#1d2430;
+  margin-top:6px;
+  position:relative;
+}
+
+.fill{
+  height:100%;
+  background:var(--accent);
+}
+
+.log{
+  font-size:14px;
+  line-height:1.9;
+  color:#bfc4cc;
+  border-left:3px solid var(--accent);
+  padding-left:20px;
+}
+
+.footer{
+  padding:20px 30px;
+  border-top:1px solid rgba(255,255,255,0.05);
+  display:flex;
+  justify-content:space-between;
+  font-size:12px;
+  color:var(--sub);
+}
+
+@media(max-width:1100px){
+  .content{grid-template-columns:1fr}
+  .left{border-right:none;padding-right:0;border-bottom:1px solid rgba(255,255,255,0.05);padding-bottom:30px}
+}
+</style>
+</head>
+<body>
+
+<div class="wrapper">
+
+  <div class="topbar">
+    <div class="brand">SHUGUANG CITY JOINT TASK NETWORK</div>
+    <div class="status">ACTIVE AGENT · CLEARANCE OMEGA-5</div>
+  </div>
+
+  <div class="content">
+
+    <div class="left">
+      <div class="codename">NIGHTFALL</div>
+      <div class="role">曙光市政府 · 冒险家协会 外勤特勤组</div>
+
+      <div class="meta">
+        <span>身份编号</span>
+        <strong>MDC-SG-0715</strong>
+      </div>
+
+      <div class="meta">
+        <span>血型</span>
+        <strong>O+</strong>
+      </div>
+
+      <div class="meta">
+        <span>污染指数</span>
+        <strong>0.02%</strong>
+      </div>
+
+      <div class="meta">
+        <span>状态</span>
+        <strong style="color:var(--accent)">FIELD DEPLOYED</strong>
+      </div>
+
+      <div class="badge">AUTHORIZED FOR CINDER ZONE II</div>
+    </div>
+
+    <div class="right">
+
+      <section>
+        <div class="section-title">TACTICAL PROFILE</div>
+        <div class="grid">
+          <div class="item">
+            <span>近战压制</span>
+            <strong>87%</strong>
+            <div class="bar"><div class="fill" style="width:87%"></div></div>
+          </div>
+          <div class="item">
+            <span>远程精度</span>
+            <strong>93%</strong>
+            <div class="bar"><div class="fill" style="width:93%"></div></div>
+          </div>
+          <div class="item">
+            <span>废土生存</span>
+            <strong>96%</strong>
+            <div class="bar"><div class="fill" style="width:96%"></div></div>
+          </div>
+          <div class="item">
+            <span>精神稳定</span>
+            <strong>81%</strong>
+            <div class="bar"><div class="fill" style="width:81%"></div></div>
+          </div>
+          <div class="item">
+            <span>小队指挥</span>
+            <strong>89%</strong>
+            <div class="bar"><div class="fill" style="width:89%"></div></div>
+          </div>
+          <div class="item">
+            <span>工程支援</span>
+            <strong>74%</strong>
+            <div class="bar"><div class="fill" style="width:74%"></div></div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-title">MISSION LOG // CINDER ZONE</div>
+        <div class="log">
+          在烬区外围遭遇突变体集群，确认存在特瑞拉残留实验体活动迹象。
+          回收一枚疑似X61设施遗失的数据芯片。
+          数据包含重力异常波动曲线，与曙光市地下封存区信号频率一致。
+          建议提升内环防御等级至橙色警戒。
+        </div>
+      </section>
+
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <div>MDC INTERNAL SIGNAL ROUTED · SHUGUANG NODE</div>
+    <div>ARCHIVE HASH // SG-OMEGA-715</div>
+  </div>
+
+</div>
+
+</body>
+</html>
