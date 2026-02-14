@@ -8,17 +8,28 @@
 <style>
 body{
     margin:0;
-    background:#000033 url("https://media.giphy.com/media/3o7aD2saalBwwftBIY/giphy.gif");
+    background:#000033;
+    background-image:
+        radial-gradient(circle at 20% 20%, rgba(0,255,255,0.3), transparent 40%),
+        radial-gradient(circle at 80% 80%, rgba(0,128,255,0.3), transparent 40%);
+    background-size:200% 200%;
+    animation:bgMove 6s infinite alternate;
     font-family:"Microsoft YaHei",sans-serif;
     text-align:center;
     color:#ffff00;
 }
 
+@keyframes bgMove{
+    0%{background-position:0% 0%;}
+    100%{background-position:100% 100%;}
+}
+
 .wrapper{
-    width:900px;
+    width:950px;
     margin:0 auto;
     background:#0033ff;
     border:10px solid #ffff00;
+    box-shadow:0 0 30px #00ffff;
 }
 
 h1{
@@ -29,8 +40,18 @@ h1{
     padding:20px;
 }
 
+.flash{
+    animation:flash 1s infinite;
+}
+
+@keyframes flash{
+    0%{opacity:1;}
+    50%{opacity:0.3;}
+    100%{opacity:1;}
+}
+
 .big{
-    font-size:60px;
+    font-size:55px;
     font-weight:900;
     color:#ff0000;
     background:#ffff00;
@@ -39,7 +60,7 @@ h1{
 }
 
 .product{
-    font-size:26px;
+    font-size:24px;
     margin:15px;
     background:#ffcc00;
     color:#000;
@@ -47,29 +68,17 @@ h1{
     border:4px solid #ff0000;
 }
 
-.flash{
-    animation:flash 1s infinite;
-}
-
-@keyframes flash{
-    0%{opacity:1;}
-    50%{opacity:0.2;}
-    100%{opacity:1;}
-}
-
-.footer{
-    font-size:14px;
-    background:#ff0000;
-    color:#fff;
-    padding:10px;
-    margin-top:30px;
-}
-
-.warning{
+.section-title{
+    font-size:32px;
     background:#ff0000;
     color:#ffff00;
-    font-size:22px;
+    margin:30px 0 10px 0;
     padding:10px;
+}
+
+.flag{
+    font-size:40px;
+    margin:5px;
 }
 
 .counter{
@@ -81,6 +90,15 @@ h1{
     border:3px solid #00ff00;
     margin-top:20px;
 }
+
+.footer{
+    font-size:14px;
+    background:#ff0000;
+    color:#fff;
+    padding:10px;
+    margin-top:30px;
+}
+
 .float-box{
     position:fixed;
     right:10px;
@@ -92,10 +110,38 @@ h1{
     border:3px solid #ffff00;
     animation:flash 1.2s infinite;
 }
+
+.modal{
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.7);
+}
+
+.modal-content{
+    background:#ffff00;
+    color:#ff0000;
+    padding:30px;
+    margin:10% auto;
+    width:400px;
+    font-size:22px;
+    border:5px solid #ff0000;
+}
+button{
+    padding:10px 20px;
+    font-size:18px;
+    background:#ff0000;
+    color:#fff;
+    border:none;
+    cursor:pointer;
+}
 </style>
 
 <script>
-let count = localStorage.getItem("sgme_count") || 10086;
+let count = localStorage.getItem("sgme_count") || 20888;
 count++;
 localStorage.setItem("sgme_count",count);
 
@@ -103,70 +149,80 @@ function playSound(){
     let audio = new Audio("https://www.soundjay.com/buttons/sounds/button-3.mp3");
     audio.play();
 }
-</script>
 
+function showModal(){
+    document.getElementById("joinModal").style.display="block";
+}
+
+function closeModal(){
+    document.getElementById("joinModal").style.display="none";
+}
+
+window.onload=function(){
+    showModal();
+}
+</script>
 </head>
+
 <body onclick="playSound()">
 
-<div class="warning">
-<marquee scrollamount="12">
-【军工保密单位 严禁非法复制】 ★ 国家重点研发项目单位 ★ 自主红石核心架构 ★ 全球领先 ★
+<marquee scrollamount="12" style="background:#ff0000;color:#ffff00;font-size:22px;padding:10px;">
+【军工保密单位 严禁非法复制】 ★ 国家重点研发单位 ★ 全球领先 ★ 自主红石核心技术 ★
 </marquee>
-</div>
 
 <div class="wrapper">
 
 <h1 class="flash">曙光微电子有限公司</h1>
 
-<marquee scrollamount="8" behavior="alternate">
-★★★ 自主研发 · 军工品质 · 全球热销 · 曙光出品 必属精品 ★★★
-</marquee>
-
 <div class="big">
 世界级红石技术 · 半导体核心力量
 </div>
 
-<div class="product">
-曙光微电子 AR555 时基电路<br>
-【城市级控制】【超稳定输出】【军工标准】
+<div class="section-title">核心产品展示</div>
+
+<div class="product">AR555 时基电路【超稳定】【军工标准】</div>
+<div class="product">SGT-Dyn11-220/10 油浸式变压器【重载运行】</div>
+<div class="product">SGC-51 “算子” 8位控制器【自主架构】</div>
+<div class="product">“雷霆”电磁炮电容器组【战略级储能】</div>
+<div class="product">碳化硅MOSFET功率模块【未来能源】</div>
+<div class="product">SGS-1 “火种”磁芯存储器阵列【数据永存】</div>
+
+<div class="section-title">全球合作伙伴</div>
+<div>
+<span class="flag">🇨🇳</span>
+<span class="flag">🇺🇸</span>
+<span class="flag">🇷🇺</span>
+<span class="flag">🇩🇪</span>
+<span class="flag">🇯🇵</span>
+<span class="flag">🇰🇷</span>
+<span class="flag">🇬🇧</span>
+<span class="flag">🇫🇷</span>
 </div>
 
+<div class="section-title">领导关怀</div>
 <div class="product">
-曙光微电子 SGT-Dyn11-220/10 油浸式配电变压器<br>
-【高效节能】【工业级运行】【战略保障】
+多位领导莅临曙光微电子指导工作，对公司在红石架构与半导体核心技术领域取得的成果给予高度评价。
 </div>
 
-<div class="product">
-SGC-51 “算子” 8位控制器<br>
-【自主架构】【逻辑核心】【稳定可靠】
-</div>
-
-<div class="product">
-军用“雷霆”电磁炮电容器组<br>
-【瞬时释放】【战略储能】【军工品质】
-</div>
-
-<div class="product">
-实验型碳化硅MOSFET功率模块<br>
-【高频高压】【未来能源核心】
-</div>
-
-<div class="product">
-SGS-1 “火种”磁芯存储器阵列<br>
-【抗干扰】【数据永存】【复古科技】
-</div>
-
-<div class="counter">
-本站访问量：<span id="visit"></span>
+<div class="section-title">企业荣誉证书</div>
+<div class="product" id="cert">
+国家级高新技术企业
 </div>
 
 <script>
-document.getElementById("visit").innerText = count;
+let certs=["国家级高新技术企业","军工技术创新奖","曙光市核心科技企业","全球红石技术领军企业"];
+let i=0;
+setInterval(()=>{
+    i=(i+1)%certs.length;
+    document.getElementById("cert").innerText=certs[i];
+},2000);
+
+document.write('<div class="counter">本站访问量：'+count+'</div>');
 </script>
 
 <br><br>
 
-<img src="https://media.giphy.com/media/l0HlBO7eyXzSZkJri/giphy.gif">
+<img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif">
 <br>
 <span style="color:#ff0000;font-size:24px;">网站持续建设中…</span>
 
@@ -180,6 +236,14 @@ document.getElementById("visit").innerText = count;
 <div class="float-box">
 在线客服：红石技术支持<br>
 QQ：981763520
+</div>
+
+<div class="modal" id="joinModal">
+<div class="modal-content">
+🔥 加入我们成为代理商！<br><br>
+全球市场火爆招商中！<br><br>
+<button onclick="closeModal()">立即加盟</button>
+</div>
 </div>
 
 </body>
