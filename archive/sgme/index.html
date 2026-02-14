@@ -8,20 +8,10 @@
 <style>
 body{
     margin:0;
-    background:#000033;
-    background-image:
-        radial-gradient(circle at 20% 20%, rgba(0,255,255,0.3), transparent 40%),
-        radial-gradient(circle at 80% 80%, rgba(0,128,255,0.3), transparent 40%);
-    background-size:200% 200%;
-    animation:bgMove 6s infinite alternate;
+    background:#000000;
     font-family:"Microsoft YaHei",sans-serif;
     text-align:center;
     color:#ffff00;
-}
-
-@keyframes bgMove{
-    0%{background-position:0% 0%;}
-    100%{background-position:100% 100%;}
 }
 
 .wrapper{
@@ -29,7 +19,6 @@ body{
     margin:0 auto;
     background:#0033ff;
     border:10px solid #ffff00;
-    box-shadow:0 0 30px #00ffff;
 }
 
 h1{
@@ -77,7 +66,7 @@ h1{
 }
 
 .flag{
-    font-size:40px;
+    width:60px;
     margin:5px;
 }
 
@@ -141,7 +130,7 @@ button{
 </style>
 
 <script>
-let count = localStorage.getItem("sgme_count") || 20888;
+let count = localStorage.getItem("sgme_count") || 30888;
 count++;
 localStorage.setItem("sgme_count",count);
 
@@ -189,14 +178,14 @@ window.onload=function(){
 
 <div class="section-title">全球合作伙伴</div>
 <div>
-<span class="flag">🇨🇳</span>
-<span class="flag">🇺🇸</span>
-<span class="flag">🇷🇺</span>
-<span class="flag">🇩🇪</span>
-<span class="flag">🇯🇵</span>
-<span class="flag">🇰🇷</span>
-<span class="flag">🇬🇧</span>
-<span class="flag">🇫🇷</span>
+<img class="flag" src="https://flagcdn.com/w80/cn.png">
+<img class="flag" src="https://flagcdn.com/w80/us.png">
+<img class="flag" src="https://flagcdn.com/w80/ru.png">
+<img class="flag" src="https://flagcdn.com/w80/de.png">
+<img class="flag" src="https://flagcdn.com/w80/jp.png">
+<img class="flag" src="https://flagcdn.com/w80/kr.png">
+<img class="flag" src="https://flagcdn.com/w80/gb.png">
+<img class="flag" src="https://flagcdn.com/w80/fr.png">
 </div>
 
 <div class="section-title">领导关怀</div>
@@ -222,7 +211,7 @@ document.write('<div class="counter">本站访问量：'+count+'</div>');
 
 <br><br>
 
-<img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif">
+<img src="https://media.giphy.com/media/l0HlBO7eyXzSZkJri/giphy.gif">
 <br>
 <span style="color:#ff0000;font-size:24px;">网站持续建设中…</span>
 
@@ -235,7 +224,7 @@ document.write('<div class="counter">本站访问量：'+count+'</div>');
 
 <div class="float-box">
 在线客服：红石技术支持<br>
-QQ：981763520
+Q群：981763520
 </div>
 
 <div class="modal" id="joinModal">
