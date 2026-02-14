@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MDC - 曙光市战术数据终端</title>
+<link rel="icon" type="image/png" href="/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0e1116;
+  --panel:#141922;
+  --line:#ff6a00;
+  --accent:#ff6a00;
+  --text:#e6e6e6;
+  --sub:#8a8f99;
+  --grid:rgba(255,255,255,0.03);
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  background:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg,var(--grid) 1px, transparent 1px),
+    var(--bg);
+  background-size:40px 40px;
+  font-family:'Rajdhani','Noto Sans SC',sans-serif;
+  color:var(--text);
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:40px 20px;
+}
+
+.wrapper{
+  width:1300px;
+  max-width:100%;
+  background:var(--panel);
+  position:relative;
+  border-left:4px solid var(--accent);
+  box-shadow:0 0 80px rgba(255,106,0,0.08);
+}
+
+.topbar{
+  padding:20px 30px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid rgba(255,255,255,0.05);
+}
+
+.brand{
+  font-size:22px;
+  font-weight:700;
+  letter-spacing:3px;
+}
+
+.status{
+  font-size:14px;
+  color:var(--accent);
+  letter-spacing:2px;
+}
+
+.content{
+  display:grid;
+  grid-template-columns:360px 1fr;
+  gap:50px;
+  padding:50px;
+}
+
+.left{
+  border-right:1px solid rgba(255,255,255,0.05);
+  padding-right:40px;
+}
+
+.codename{
+  font-size:48px;
+  font-weight:700;
+  letter-spacing:4px;
+  margin-bottom:10px;
+}
+
+.role{
+  font-size:16px;
+  color:var(--sub);
+  margin-bottom:30px;
+}
+
+.meta{margin-bottom:20px;}
+
+.meta span{
+  display:block;
+  font-size:13px;
+  color:var(--sub);
+}
+
+.meta strong{
+  font-size:16px;
+  letter-spacing:1px;
+}
+
+.badge{
+  margin-top:25px;
+  padding:8px 0;
+  border-top:1px solid rgba(255,255,255,0.05);
+  border-bottom:1px solid rgba(255,255,255,0.05);
+  font-size:13px;
+  letter-spacing:2px;
+  color:var(--accent);
+}
+
+.right section{
+  margin-bottom:40px;
+}
+
+.section-title{
+  font-size:14px;
+  letter-spacing:3px;
+  color:var(--accent);
+  margin-bottom:20px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:25px 40px;
+}
+
+.item span{
+  display:block;
+  font-size:12px;
+  color:var(--sub);
+}
+
+.item strong{
+  font-size:16px;
+}
+
+.bar{
+  height:6px;
+  background:#1d2430;
+  margin-top:6px;
+}
+
+.fill{
+  height:100%;
+  background:var(--accent);
+}
+
+.log{
+  font-size:14px;
+  line-height:1.9;
+  color:#bfc4cc;
+  border-left:3px solid var(--accent);
+  padding-left:20px;
+}
+
+.footer{
+  padding:20px 30px;
+  border-top:1px solid rgba(255,255,255,0.05);
+  display:flex;
+  justify-content:space-between;
+  font-size:12px;
+  color:var(--sub);
+}
+
+@media(max-width:1100px){
+  .content{grid-template-columns:1fr}
+  .left{border-right:none;padding-right:0;border-bottom:1px solid rgba(255,255,255,0.05);padding-bottom:30px}
+}
+</style>
+</head>
+<body>
+
+<div class="wrapper">
+
+  <div class="topbar">
+    <div class="brand">SHUGUANG CITY JOINT TASK NETWORK</div>
+    <div class="status">CLEARANCE LEVEL : OMEGA-7 · DATA VERIFIED</div>
+  </div>
+
+  <div class="content">
+
+    <div class="left">
+      <div class="codename">7AU</div>
+      <div class="role">曙光微电子 CEO · 系统架构与红石工程核心节点</div>
+
+      <div class="meta">
+        <span>防卫识别码</span>
+        <strong>SG-0700</strong>
+      </div>
+
+      <div class="meta">
+        <span>血型</span>
+        <strong>未知</strong>
+      </div>
+
+      <div class="meta">
+        <span>生物污染暴露指数</span>
+        <strong>0.00%</strong>
+      </div>
+
+      <div class="meta">
+        <span>状态</span>
+        <strong style="color:#1aff6b;">LIVE</strong>
+      </div>
+
+      <div class="badge">SHUGUANG MICROELECTRONICS · EXECUTIVE NODE</div>
+    </div>
+
+    <div class="right">
+
+      <section>
+        <div class="section-title">TACTICAL PROFILE</div>
+        <div class="grid">
+
+          <div class="item"><span>近距战术执行</span><strong>68%</strong><div class="bar"><div class="fill" style="width:68%"></div></div></div>
+          <div class="item"><span>远程火控精度</span><strong>74%</strong><div class="bar"><div class="fill" style="width:74%"></div></div></div>
+          <div class="item"><span>极端环境适应</span><strong>85%</strong><div class="bar"><div class="fill" style="width:85%"></div></div></div>
+          <div class="item"><span>神经负荷稳定</span><strong>96%</strong><div class="bar"><div class="fill" style="width:96%"></div></div></div>
+          <div class="item"><span>指挥协同效率</span><strong>91%</strong><div class="bar"><div class="fill" style="width:91%"></div></div></div>
+          <div class="item"><span>工程支援响应</span><strong>100%</strong><div class="bar"><div class="fill" style="width:100%"></div></div></div>
+
+        </div>
+      </section>
+
+      <section>
+        <div class="section-title">MISSION LOG</div>
+        <div class="log">
+          负责曙光市内部红石系统架构设计与高复杂度指令逻辑开发，
+          主导构建多项自动化与控制系统核心模块。
+          同时设计并推进 MDCard 实体识别系统与档案库网页结构，
+          形成现实与虚拟交互的识别终端体系。
+          现为曙光微电子最高执行负责人，
+          负责技术研发方向与系统级设计决策。
+        </div>
+      </section>
+
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <div>MDC INTERNAL SIGNAL ROUTED · SHUGUANG NODE</div>
+    <div>ARCHIVE HASH // SG-0700</div>
+  </div>
+
+  <div style="position:absolute;bottom:8px;left:0;right:0;text-align:center;font-size:18px;letter-spacing:4px;font-weight:700;color:#141922;user-select:text;">
+    CUSTOM MEMBER
+  </div>
+
+</div>
+
+</body>
+</html>
