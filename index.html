@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MDC Archive Terminal</title>
+<title>MDC档案库</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
 
@@ -16,17 +16,38 @@
   --sub:#6c7785;
 }
 
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
+*{margin:0;padding:0;box-sizing:border-box;}
 
 body{
   font-family:'Rajdhani',sans-serif;
   background:var(--bg);
   color:var(--text);
   overflow:hidden;
+}
+
+/* 扫描线 */
+body::after{
+  content:"";
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:linear-gradient(
+    to bottom,
+    rgba(255,106,0,0.05) 0%,
+    rgba(255,106,0,0.05) 50%,
+    transparent 50%,
+    transparent 100%
+  );
+  background-size:100% 4px;
+  pointer-events:none;
+  animation:scan 6s linear infinite;
+}
+
+@keyframes scan{
+  0%{background-position:0 0;}
+  100%{background-position:0 200px;}
 }
 
 .wrapper{
@@ -37,7 +58,7 @@ body{
   padding:40px 60px;
 }
 
-/* 顶部栏 */
+/* 顶部 */
 .topbar{
   display:flex;
   justify-content:space-between;
@@ -51,11 +72,7 @@ body{
   font-weight:700;
 }
 
-.clock{
-  font-weight:500;
-}
-
-/* 中央 */
+/* 中央区域 */
 .center{
   text-align:center;
 }
@@ -73,10 +90,13 @@ body{
   letter-spacing:2px;
 }
 
+/* 输入区域 */
 .input-area{
   display:inline-flex;
   border:1px solid var(--accent);
   padding:6px;
+  opacity:0;
+  transition:opacity 0.5s;
 }
 
 .input-area input{
@@ -111,6 +131,17 @@ body{
   letter-spacing:1px;
 }
 
+/* 启动日志 */
+.boot-log{
+  font-size:14px;
+  line-height:1.8;
+  text-align:left;
+  max-width:700px;
+  margin:0 auto 40px auto;
+  color:var(--accent);
+  min-height:160px;
+}
+
 /* 底部 */
 .footer{
   font-size:12px;
@@ -118,31 +149,6 @@ body{
   letter-spacing:2px;
   display:flex;
   justify-content:space-between;
-}
-
-/* 扫描线动画 */
-body::after{
-  content:"";
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background:linear-gradient(
-    to bottom,
-    rgba(255,106,0,0.05) 0%,
-    rgba(255,106,0,0.05) 50%,
-    transparent 50%,
-    transparent 100%
-  );
-  background-size:100% 4px;
-  pointer-events:none;
-  animation:scan 6s linear infinite;
-}
-
-@keyframes scan{
-  0%{background-position:0 0;}
-  100%{background-position:0 200px;}
 }
 </style>
 </head>
@@ -152,51 +158,94 @@ body::after{
 <div class="wrapper">
 
   <div class="topbar">
-    <div class="brand">SHUGUANG CITY DATA ACCESS GATEWAY</div>
-    <div class="clock" id="clock"></div>
+    <div class="brand">曙光市联合战术网络</div>
+    <div id="clock"></div>
   </div>
 
   <div class="center">
-    <div class="title">MDC ARCHIVE TERMINAL</div>
-    <div class="subtitle">SECURE NFC NODE REQUIRED FOR DIRECT ACCESS</div>
 
-    <div class="input-area">
-      <input type="text" id="codeInput" placeholder="ENTER DEFENSE IDENTIFIER">
-      <button onclick="query()">ACCESS</button>
+    <div class="title">MDC 档案终端</div>
+    <div class="subtitle">访问受限 · 需要授权识别节点</div>
+
+    <div class="boot-log" id="bootLog"></div>
+
+    <div class="input-area" id="accessPanel">
+      <input type="text" id="codeInput" placeholder="输入防卫识别码">
+      <button onclick="query()">接入</button>
     </div>
 
     <div class="message" id="msg">
-      Public search disabled. Use authorized NFC device to access archive nodes.
+      公共查询接口已关闭，请使用 NFC 识别设备接入。
     </div>
+
   </div>
 
   <div class="footer">
-    <div>NODE STATUS : ONLINE</div>
-    <div>ARCHIVE NETWORK · MDC-CORE</div>
+    <div>系统状态：在线</div>
+    <div>ARCHIVE NETWORK · MDC CORE</div>
   </div>
 
 </div>
 
 <script>
+
+/* 实时时钟 */
 function updateClock(){
   const now=new Date();
-  const time=now.toLocaleString();
-  document.getElementById("clock").innerText=time;
+  document.getElementById("clock").innerText=now.toLocaleString();
 }
 setInterval(updateClock,1000);
 updateClock();
 
+/* 启动日志逐字打印 */
+const bootLines=[
+"正在连接曙光市主数据库...",
+"验证档案完整性...",
+"加载战术终端协议...",
+"检测节点安全状态...",
+"建立加密通信通道...",
+"系统启动完成。"
+];
+
+let lineIndex=0;
+let charIndex=0;
+const log=document.getElementById("bootLog");
+
+function typeLine(){
+  if(lineIndex>=bootLines.length){
+    document.getElementById("accessPanel").style.opacity=1;
+    return;
+  }
+
+  const currentLine=bootLines[lineIndex];
+
+  if(charIndex<currentLine.length){
+    log.innerHTML+=currentLine.charAt(charIndex);
+    charIndex++;
+    setTimeout(typeLine,40);
+  }else{
+    log.innerHTML+="<br>";
+    lineIndex++;
+    charIndex=0;
+    setTimeout(typeLine,300);
+  }
+}
+
+typeLine();
+
+/* 查询反馈 */
 function query(){
   const input=document.getElementById("codeInput").value.trim();
   const msg=document.getElementById("msg");
 
   if(input===""){
-    msg.innerText="NO IDENTIFIER DETECTED.";
+    msg.innerText="未检测到识别码。";
     return;
   }
 
-  msg.innerText="DIRECT DATABASE QUERY LOCKED. NFC ACCESS REQUIRED.";
+  msg.innerText="直接数据库查询已锁定。请使用实体识别载体接入。";
 }
+
 </script>
 
 </body>
