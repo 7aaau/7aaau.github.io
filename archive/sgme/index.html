@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>曙光微电子有限公司 - 官方网站</title>
+<link rel="icon" href="/favicon.png">
+
+<style>
+body{
+    margin:0;
+    background:#000033 url("https://media.giphy.com/media/3o7aD2saalBwwftBIY/giphy.gif");
+    font-family:"Microsoft YaHei",sans-serif;
+    text-align:center;
+    color:#ffff00;
+}
+
+.wrapper{
+    width:900px;
+    margin:0 auto;
+    background:#0033ff;
+    border:10px solid #ffff00;
+}
+
+h1{
+    font-size:48px;
+    background:#ff0000;
+    color:#ffffff;
+    margin:0;
+    padding:20px;
+}
+
+.big{
+    font-size:60px;
+    font-weight:900;
+    color:#ff0000;
+    background:#ffff00;
+    padding:10px;
+    margin:20px 0;
+}
+
+.product{
+    font-size:26px;
+    margin:15px;
+    background:#ffcc00;
+    color:#000;
+    padding:15px;
+    border:4px solid #ff0000;
+}
+
+.flash{
+    animation:flash 1s infinite;
+}
+
+@keyframes flash{
+    0%{opacity:1;}
+    50%{opacity:0.2;}
+    100%{opacity:1;}
+}
+
+.footer{
+    font-size:14px;
+    background:#ff0000;
+    color:#fff;
+    padding:10px;
+    margin-top:30px;
+}
+
+.warning{
+    background:#ff0000;
+    color:#ffff00;
+    font-size:22px;
+    padding:10px;
+}
+
+.counter{
+    font-size:24px;
+    background:#000;
+    color:#00ff00;
+    display:inline-block;
+    padding:10px 20px;
+    border:3px solid #00ff00;
+    margin-top:20px;
+}
+.float-box{
+    position:fixed;
+    right:10px;
+    bottom:50px;
+    background:#ff0000;
+    color:#fff;
+    padding:15px;
+    font-size:18px;
+    border:3px solid #ffff00;
+    animation:flash 1.2s infinite;
+}
+</style>
+
+<script>
+let count = localStorage.getItem("sgme_count") || 10086;
+count++;
+localStorage.setItem("sgme_count",count);
+
+function playSound(){
+    let audio = new Audio("https://www.soundjay.com/buttons/sounds/button-3.mp3");
+    audio.play();
+}
+</script>
+
+</head>
+<body onclick="playSound()">
+
+<div class="warning">
+<marquee scrollamount="12">
+【军工保密单位 严禁非法复制】 ★ 国家重点研发项目单位 ★ 自主红石核心架构 ★ 全球领先 ★
+</marquee>
+</div>
+
+<div class="wrapper">
+
+<h1 class="flash">曙光微电子有限公司</h1>
+
+<marquee scrollamount="8" behavior="alternate">
+★★★ 自主研发 · 军工品质 · 全球热销 · 曙光出品 必属精品 ★★★
+</marquee>
+
+<div class="big">
+世界级红石技术 · 半导体核心力量
+</div>
+
+<div class="product">
+曙光微电子 AR555 时基电路<br>
+【城市级控制】【超稳定输出】【军工标准】
+</div>
+
+<div class="product">
+曙光微电子 SGT-Dyn11-220/10 油浸式配电变压器<br>
+【高效节能】【工业级运行】【战略保障】
+</div>
+
+<div class="product">
+SGC-51 “算子” 8位控制器<br>
+【自主架构】【逻辑核心】【稳定可靠】
+</div>
+
+<div class="product">
+军用“雷霆”电磁炮电容器组<br>
+【瞬时释放】【战略储能】【军工品质】
+</div>
+
+<div class="product">
+实验型碳化硅MOSFET功率模块<br>
+【高频高压】【未来能源核心】
+</div>
+
+<div class="product">
+SGS-1 “火种”磁芯存储器阵列<br>
+【抗干扰】【数据永存】【复古科技】
+</div>
+
+<div class="counter">
+本站访问量：<span id="visit"></span>
+</div>
+
+<script>
+document.getElementById("visit").innerText = count;
+</script>
+
+<br><br>
+
+<img src="https://media.giphy.com/media/l0HlBO7eyXzSZkJri/giphy.gif">
+<br>
+<span style="color:#ff0000;font-size:24px;">网站持续建设中…</span>
+
+<div class="footer">
+版权所有 © 曙光微电子有限公司 SG-0700 EXECUTIVE NODE<br>
+建议使用 IE6 以上浏览器 1024×768 分辨率浏览
+</div>
+
+</div>
+
+<div class="float-box">
+在线客服：红石技术支持<br>
+QQ：981763520
+</div>
+
+</body>
+</html>
