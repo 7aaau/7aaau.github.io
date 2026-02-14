@@ -1,179 +1,161 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>MDC - 曙光市战术数据终端</title>
-<link rel="icon" type="image/png" href="/favicon.png">
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MDC档案库</title>
+
+<link rel="icon" type="image/png" href="favicon.png">
+
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
 
 <style>
 :root{
   --bg:#0e1116;
-  --panel:#141922;
   --accent:#ff6a00;
-  --text:#e6e6e6;
-  --sub:#8a8f99;
-  --grid:rgba(255,255,255,0.03);
-
-  /* 状态颜色标准 */
-  --status-green:#1aff6b;
-  --status-orange:#ff6a00;
-  --status-red:#ff2e2e;
-  --status-gold:#ffcc33;
-  --status-gray:#7a7f88;
+  --text:#d6d9df;
+  --sub:#6c7785;
 }
 
-*{margin:0;padding:0;box-sizing:border-box}
+*{margin:0;padding:0;box-sizing:border-box;}
 
 body{
-  background:
-    linear-gradient(var(--grid) 1px, transparent 1px),
-    linear-gradient(90deg,var(--grid) 1px, transparent 1px),
-    var(--bg);
-  background-size:40px 40px;
-  font-family:'Rajdhani','Noto Sans SC',sans-serif;
+  font-family:'Rajdhani',sans-serif;
+  background:var(--bg);
   color:var(--text);
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:40px 20px;
+  overflow:hidden;
+}
+
+/* 扫描线 */
+body::after{
+  content:"";
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:linear-gradient(
+    to bottom,
+    rgba(255,106,0,0.05) 0%,
+    rgba(255,106,0,0.05) 50%,
+    transparent 50%,
+    transparent 100%
+  );
+  background-size:100% 4px;
+  pointer-events:none;
+  animation:scan 6s linear infinite;
+}
+
+@keyframes scan{
+  0%{background-position:0 0;}
+  100%{background-position:0 200px;}
 }
 
 .wrapper{
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  padding:40px 60px;
   position:relative;
-  width:1300px;
-  max-width:100%;
-  background:var(--panel);
-  border-left:4px solid var(--accent);
-  box-shadow:0 0 80px rgba(255,106,0,0.08);
 }
 
+/* 顶部 */
 .topbar{
-  padding:20px 30px;
   display:flex;
   justify-content:space-between;
-  border-bottom:1px solid rgba(255,255,255,0.05);
+  font-size:14px;
+  letter-spacing:2px;
+  color:var(--sub);
 }
 
 .brand{
-  font-size:22px;
-  font-weight:700;
-  letter-spacing:3px;
-}
-
-.status{
-  font-size:14px;
-  letter-spacing:2px;
   color:var(--accent);
+  font-weight:700;
 }
 
-.content{
-  display:grid;
-  grid-template-columns:360px 1fr;
-  gap:50px;
-  padding:50px;
+/* 启动画面 */
+#bootScreen{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  text-align:center;
+  color:var(--accent);
+  transition:opacity 0.8s;
 }
 
-.left{
-  border-right:1px solid rgba(255,255,255,0.05);
-  padding-right:40px;
+.boot-text{
+  font-size:16px;
+  line-height:1.8;
+  letter-spacing:2px;
 }
 
-.codename{
+/* 主界面 */
+#mainUI{
+  opacity:0;
+  transition:opacity 0.8s;
+  text-align:center;
+}
+
+.title{
   font-size:48px;
   font-weight:700;
   letter-spacing:4px;
-  margin-bottom:10px;
-}
-
-.role{
-  font-size:16px;
-  color:var(--sub);
-  margin-bottom:30px;
-}
-
-.meta{margin-bottom:20px;}
-
-.meta span{
-  display:block;
-  font-size:13px;
-  color:var(--sub);
-}
-
-.meta strong{
-  font-size:16px;
-}
-
-.badge{
-  margin-top:25px;
-  padding:8px 0;
-  border-top:1px solid rgba(255,255,255,0.05);
-  border-bottom:1px solid rgba(255,255,255,0.05);
-  font-size:13px;
-  letter-spacing:2px;
-  color:var(--accent);
-}
-
-.section-title{
-  font-size:14px;
-  letter-spacing:3px;
-  color:var(--accent);
   margin-bottom:20px;
 }
 
-.grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:25px 40px;
+.subtitle{
+  color:var(--sub);
+  margin-bottom:40px;
+  letter-spacing:2px;
 }
 
-.item span{
-  display:block;
+.input-area{
+  display:inline-flex;
+  border:1px solid var(--accent);
+  padding:6px;
+}
+
+.input-area input{
+  background:none;
+  border:none;
+  color:var(--text);
+  padding:10px 15px;
+  width:260px;
+  font-family:'Rajdhani',sans-serif;
+  font-size:16px;
+  outline:none;
+}
+
+.input-area button{
+  background:var(--accent);
+  border:none;
+  color:#000;
+  padding:10px 20px;
+  font-weight:700;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+.input-area button:hover{
+  background:#ff8c3a;
+}
+
+.message{
+  margin-top:25px;
+  color:var(--sub);
+  font-size:14px;
+  letter-spacing:1px;
+}
+
+/* 底部 */
+.footer{
   font-size:12px;
   color:var(--sub);
-}
-
-.bar{
-  height:6px;
-  background:#1d2430;
-  margin-top:6px;
-}
-
-.fill{
-  height:100%;
-  background:var(--accent);
-}
-
-.log{
-  font-size:14px;
-  line-height:1.9;
-  color:#bfc4cc;
-  border-left:3px solid var(--accent);
-  padding-left:20px;
-}
-
-.footer{
-  padding:20px 30px;
-  border-top:1px solid rgba(255,255,255,0.05);
+  letter-spacing:2px;
   display:flex;
   justify-content:space-between;
-  font-size:12px;
-  color:var(--sub);
-}
-
-.hidden-mark{
-  position:absolute;
-  bottom:8px;
-  left:0;
-  right:0;
-  text-align:center;
-  font-size:18px;
-  letter-spacing:4px;
-  font-weight:700;
-  color:var(--panel);
-  user-select:text;
 }
 </style>
 </head>
@@ -183,75 +165,110 @@ body{
 <div class="wrapper">
 
   <div class="topbar">
-    <div class="brand">SHUGUANG CITY JOINT TASK NETWORK</div>
-    <div class="status">CLEARANCE LEVEL : OMEGA-5 · DATA VERIFIED</div>
+    <div class="brand">MDC档案库</div>
+    <div id="clock"></div>
   </div>
 
-  <div class="content">
+  <div id="bootScreen">
+    <div class="boot-text" id="bootText"></div>
+  </div>
 
-    <div class="left">
-      <div class="codename">monkey479</div>
-      <div class="role">曙光市政府 · 市长 / 城市最高行政节点</div>
+  <div id="mainUI">
+    <div class="title">MDC档案库</div>
+    <div class="subtitle">主控接入层 · 需要授权识别节点</div>
 
-      <div class="meta">
-        <span>防卫识别码</span>
-        <strong>SG-0000</strong>
-      </div>
-
-      <div class="meta">
-        <span>血型</span>
-        <strong>O+</strong>
-      </div>
-
-      <div class="meta">
-        <span>生物污染暴露指数</span>
-        <strong>0.00%</strong>
-      </div>
-
-      <div class="meta">
-        <span>状态</span>
-        <strong style="color:var(--status-green)">ONLINE</strong>
-      </div>
-
-      <div class="badge">SUPREME CIVIL AUTHORITY · CITY CORE</div>
+    <div class="input-area">
+      <input type="text" id="codeInput" placeholder="输入防卫识别码">
+      <button onclick="query()">接入</button>
     </div>
 
-    <div class="right">
-
-      <section>
-        <div class="section-title">TACTICAL PROFILE</div>
-        <div class="grid">
-          <div class="item"><span>战略决策统筹</span><strong>100%</strong><div class="bar"><div class="fill" style="width:100%"></div></div></div>
-          <div class="item"><span>城市治理能力</span><strong>100%</strong><div class="bar"><div class="fill" style="width:100%"></div></div></div>
-          <div class="item"><span>危机应对响应</span><strong>100%</strong><div class="bar"><div class="fill" style="width:100%"></div></div></div>
-          <div class="item"><span>资源调配效率</span><strong>100%</strong><div class="bar"><div class="fill" style="width:100%"></div></div></div>
-          <div class="item"><span>跨部门协同指数</span><strong>100%</strong><div class="bar"><div class="fill" style="width:100%"></div></div></div>
-          <div class="item"><span>长期发展规划力</span><strong>100%</strong><div class="bar"><div class="fill" style="width:100%"></div></div></div>
-        </div>
-      </section>
-
-      <section>
-        <div class="section-title">MISSION LOG // CITY CORE</div>
-        <div class="log">
-          作为曙光市现任最高行政负责人，全面统筹城市建设、对外行动与内部秩序维护工作。
-          在多重资源紧张与外部威胁加剧背景下，持续推进城市扩展计划与基础设施优化工程，
-          确保曙光市核心区域安全稳定运行。当前为曙光市最高决策节点，
-          所有重大行动与战略部署最终审批源头。
-        </div>
-      </section>
-
+    <div class="message" id="msg">
+      公共查询接口已关闭，请使用实体识别载体接入。
     </div>
-
   </div>
 
   <div class="footer">
-    <div>MDC INTERNAL SIGNAL ROUTED · SHUGUANG NODE</div>
-    <div>ARCHIVE HASH // SG-0000-OMEGA</div>
+    <div>系统状态：在线</div>
+    <div>ARCHIVE NETWORK · MDC CORE</div>
   </div>
-
-  <div class="hidden-mark">CUSTOM MEMBER</div>
 
 </div>
 
+<script>
+
+/* 实时时钟 */
+function updateClock(){
+  const now=new Date();
+  document.getElementById("clock").innerText=now.toLocaleString();
+}
+setInterval(updateClock,1000);
+updateClock();
+
+/* 启动动画 */
+const bootLines=[
+"正在连接MDC主数据库...",
+"加载阵营档案索引...",
+"验证核心访问权限...",
+"建立加密通信链路...",
+"系统启动完成。"
+];
+
+let lineIndex=0;
+let charIndex=0;
+
+const boot=document.getElementById("bootText");
+const bootScreen=document.getElementById("bootScreen");
+const mainUI=document.getElementById("mainUI");
+
+function typeLine(){
+  if(lineIndex>=bootLines.length){
+    setTimeout(()=>{
+      bootScreen.style.opacity=0;
+      setTimeout(()=>{
+        bootScreen.style.display="none";
+        mainUI.style.opacity=1;
+      },800);
+    },600);
+    return;
+  }
+
+  const currentLine=bootLines[lineIndex];
+
+  if(charIndex<currentLine.length){
+    boot.innerHTML+=currentLine.charAt(charIndex);
+    charIndex++;
+    setTimeout(typeLine,35);
+  }else{
+    boot.innerHTML+="<br>";
+    lineIndex++;
+    charIndex=0;
+    setTimeout(typeLine,300);
+  }
+}
+
+typeLine();
+
+/* 查询提示 */
+function query(){
+  const input=document.getElementById("codeInput").value.trim();
+  const msg=document.getElementById("msg");
+
+  if(input===""){
+    msg.innerText="未检测到识别码。";
+    return;
+  }
+
+  if(input==="SG-OMEGA-0"){
+    window.location.href="/archive/sg/omega/0/";
+    return;
+  }
+
+  msg.innerText="未授权识别码或数据库查询已锁定，请使用实体识别载体接入。";
+}
+
+
+</script>
+
 </body>
 </html>
+
