@@ -3,10 +3,174 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>MDC - 曙光市战术终端</title>
+<title>MDC - 曙光市战术数据终端</title>
+<link rel="icon" type="image/png" href="/favicon.png">
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
-/* 直接使用你现有模板样式，不变 */
+:root{
+  --bg:#0e1116;
+  --panel:#141922;
+  --line:#ff6a00;
+  --accent:#ff6a00;
+  --text:#e6e6e6;
+  --sub:#8a8f99;
+  --grid:rgba(255,255,255,0.03);
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  background:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg,var(--grid) 1px, transparent 1px),
+    var(--bg);
+  background-size:40px 40px;
+  font-family:'Rajdhani','Noto Sans SC',sans-serif;
+  color:var(--text);
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:40px 20px;
+}
+
+.wrapper{
+  width:1300px;
+  max-width:100%;
+  background:var(--panel);
+  position:relative;
+  border-left:4px solid var(--accent);
+  box-shadow:0 0 80px rgba(255,106,0,0.08);
+}
+
+.topbar{
+  padding:20px 30px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid rgba(255,255,255,0.05);
+}
+
+.brand{
+  font-size:22px;
+  font-weight:700;
+  letter-spacing:3px;
+}
+
+.status{
+  font-size:14px;
+  color:var(--accent);
+  letter-spacing:2px;
+}
+
+.content{
+  display:grid;
+  grid-template-columns:360px 1fr;
+  gap:50px;
+  padding:50px;
+}
+
+.left{
+  border-right:1px solid rgba(255,255,255,0.05);
+  padding-right:40px;
+}
+
+.codename{
+  font-size:48px;
+  font-weight:700;
+  letter-spacing:4px;
+  margin-bottom:10px;
+}
+
+.role{
+  font-size:16px;
+  color:var(--sub);
+  margin-bottom:30px;
+}
+
+.meta{margin-bottom:20px;}
+
+.meta span{
+  display:block;
+  font-size:13px;
+  color:var(--sub);
+}
+
+.meta strong{
+  font-size:16px;
+  letter-spacing:1px;
+}
+
+.badge{
+  margin-top:25px;
+  padding:8px 0;
+  border-top:1px solid rgba(255,255,255,0.05);
+  border-bottom:1px solid rgba(255,255,255,0.05);
+  font-size:13px;
+  letter-spacing:2px;
+  color:var(--accent);
+}
+
+.right section{
+  margin-bottom:40px;
+}
+
+.section-title{
+  font-size:14px;
+  letter-spacing:3px;
+  color:var(--accent);
+  margin-bottom:20px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:25px 40px;
+}
+
+.item span{
+  display:block;
+  font-size:12px;
+  color:var(--sub);
+}
+
+.item strong{
+  font-size:16px;
+}
+
+.bar{
+  height:6px;
+  background:#1d2430;
+  margin-top:6px;
+  position:relative;
+}
+
+.fill{
+  height:100%;
+  background:var(--accent);
+}
+
+.log{
+  font-size:14px;
+  line-height:1.9;
+  color:#bfc4cc;
+  border-left:3px solid var(--accent);
+  padding-left:20px;
+}
+
+.footer{
+  padding:20px 30px;
+  border-top:1px solid rgba(255,255,255,0.05);
+  display:flex;
+  justify-content:space-between;
+  font-size:12px;
+  color:var(--sub);
+}
+
+@media(max-width:1100px){
+  .content{grid-template-columns:1fr}
+  .left{border-right:none;padding-right:0;border-bottom:1px solid rgba(255,255,255,0.05);padding-bottom:30px}
+}
 </style>
 </head>
 <body>
@@ -15,23 +179,23 @@
 
   <div class="topbar">
     <div class="brand">SHUGUANG CITY JOINT TASK NETWORK</div>
-    <div class="status">CIVIL INFRASTRUCTURE NODE · VERIFIED</div>
+    <div class="status">CLEARANCE LEVEL : BETA-3 · DATA VERIFIED</div>
   </div>
 
   <div class="content">
 
     <div class="left">
-      <div class="codename">XTS</div>
-      <div class="role">曙光市政府 · 土木工程局 主体结构组</div>
+      <div class="codename">NID</div>
+      <div class="role">核心技术维护组 · 客制模组架构节点</div>
 
       <div class="meta">
         <span>防卫识别码</span>
-        <strong>SG-0421</strong>
+        <strong>SG-1024</strong>
       </div>
 
       <div class="meta">
         <span>血型</span>
-        <strong>A+</strong>
+        <strong>AB+</strong>
       </div>
 
       <div class="meta">
@@ -41,58 +205,36 @@
 
       <div class="meta">
         <span>状态</span>
-        <strong style="color:var(--accent)">CITY CORE REGISTERED</strong>
+        <strong style="color:#1aff6b;">LIVE</strong>
       </div>
 
-      <div class="badge">INFRASTRUCTURE AUTHORITY · LEVEL II</div>
+      <div class="badge">SYSTEM ARCHITECTURE AUTHORIZATION</div>
     </div>
 
     <div class="right">
 
       <section>
-        <div class="section-title">STRUCTURAL PERFORMANCE INDEX</div>
+        <div class="section-title">TACTICAL PROFILE</div>
         <div class="grid">
-          <div class="item">
-            <span>结构稳定评估值</span>
-            <strong>94%</strong>
-            <div class="bar"><div class="fill" style="width:94%"></div></div>
-          </div>
-          <div class="item">
-            <span>资源调配效率</span>
-            <strong>88%</strong>
-            <div class="bar"><div class="fill" style="width:88%"></div></div>
-          </div>
-          <div class="item">
-            <span>城市扩建贡献系数</span>
-            <strong>97%</strong>
-            <div class="bar"><div class="fill" style="width:97%"></div></div>
-          </div>
-          <div class="item">
-            <span>长期在线维护记录</span>
-            <strong>99%</strong>
-            <div class="bar"><div class="fill" style="width:99%"></div></div>
-          </div>
-          <div class="item">
-            <span>基础设施耐久优化</span>
-            <strong>91%</strong>
-            <div class="bar"><div class="fill" style="width:91%"></div></div>
-          </div>
-          <div class="item">
-            <span>协同建设稳定度</span>
-            <strong>93%</strong>
-            <div class="bar"><div class="fill" style="width:93%"></div></div>
-          </div>
+
+          <div class="item"><span>近距战术执行</span><strong>82%</strong><div class="bar"><div class="fill" style="width:82%"></div></div></div>
+          <div class="item"><span>远程火控精度</span><strong>76%</strong><div class="bar"><div class="fill" style="width:76%"></div></div></div>
+          <div class="item"><span>极端环境适应</span><strong>88%</strong><div class="bar"><div class="fill" style="width:88%"></div></div></div>
+          <div class="item"><span>神经负荷稳定</span><strong>93%</strong><div class="bar"><div class="fill" style="width:93%"></div></div></div>
+          <div class="item"><span>指挥协同效率</span><strong>95%</strong><div class="bar"><div class="fill" style="width:95%"></div></div></div>
+          <div class="item"><span>工程支援响应</span><strong>98%</strong><div class="bar"><div class="fill" style="width:98%"></div></div></div>
+
         </div>
       </section>
 
       <section>
-        <div class="section-title">CIVIL CONTRIBUTION LOG</div>
+        <div class="section-title">MISSION LOG</div>
         <div class="log">
-          自城市重建初期持续参与核心区域建设。
-          主导农业区结构规划与主城防护框架搭建。
-          多次参与城市扩建与结构重构项目。
-          其节点活跃度与贡献记录被系统长期标记为核心基础维护人员。
-          该识别节点已同步至城市主数据库。
+          负责曙光市服务器核心客制模组的架构设计与维护工作，
+          长期参与系统底层逻辑优化与数据结构重构。
+          为城市运行稳定提供关键技术支撑，
+          并参与多项核心功能开发与性能提升项目。
+          当前为核心扩展节点之一。
         </div>
       </section>
 
@@ -101,8 +243,13 @@
   </div>
 
   <div class="footer">
-    <div>LIVE INFRASTRUCTURE NODE · SHUGUANG CORE</div>
-    <div>ARCHIVE HASH // SG-0421-CIVIL</div>
+    <div>MDC INTERNAL SIGNAL ROUTED · SHUGUANG NODE</div>
+    <div>ARCHIVE HASH // SG-1024-NID</div>
+  </div>
+
+  <!-- 定制成员隐藏标记 -->
+  <div style="position:absolute;bottom:8px;left:0;right:0;text-align:center;font-size:18px;letter-spacing:4px;font-weight:700;color:#141922;user-select:text;">
+    CUSTOM MEMBER
   </div>
 
 </div>
