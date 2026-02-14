@@ -3,18 +3,25 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>MDC - 曙光市战术终端</title>
+<title>MDC - 曙光市战术数据终端</title>
 <link rel="icon" type="image/png" href="/favicon.png">
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
 <style>
 :root{
   --bg:#0e1116;
   --panel:#141922;
-  --line:#ff6a00;
   --accent:#ff6a00;
   --text:#e6e6e6;
   --sub:#8a8f99;
   --grid:rgba(255,255,255,0.03);
+
+  /* 状态颜色标准 */
+  --status-green:#1aff6b;
+  --status-orange:#ff6a00;
+  --status-red:#ff2e2e;
+  --status-gold:#ffcc33;
+  --status-gray:#7a7f88;
 }
 
 *{margin:0;padding:0;box-sizing:border-box}
@@ -35,10 +42,10 @@ body{
 }
 
 .wrapper{
+  position:relative;
   width:1300px;
   max-width:100%;
   background:var(--panel);
-  position:relative;
   border-left:4px solid var(--accent);
   box-shadow:0 0 80px rgba(255,106,0,0.08);
 }
@@ -47,7 +54,6 @@ body{
   padding:20px 30px;
   display:flex;
   justify-content:space-between;
-  align-items:center;
   border-bottom:1px solid rgba(255,255,255,0.05);
 }
 
@@ -59,8 +65,8 @@ body{
 
 .status{
   font-size:14px;
-  color:var(--accent);
   letter-spacing:2px;
+  color:var(--accent);
 }
 
 .content{
@@ -88,9 +94,7 @@ body{
   margin-bottom:30px;
 }
 
-.meta{
-  margin-bottom:20px;
-}
+.meta{margin-bottom:20px;}
 
 .meta span{
   display:block;
@@ -100,7 +104,6 @@ body{
 
 .meta strong{
   font-size:16px;
-  letter-spacing:1px;
 }
 
 .badge{
@@ -111,10 +114,6 @@ body{
   font-size:13px;
   letter-spacing:2px;
   color:var(--accent);
-}
-
-.right section{
-  margin-bottom:40px;
 }
 
 .section-title{
@@ -136,15 +135,10 @@ body{
   color:var(--sub);
 }
 
-.item strong{
-  font-size:16px;
-}
-
 .bar{
   height:6px;
   background:#1d2430;
   margin-top:6px;
-  position:relative;
 }
 
 .fill{
@@ -169,13 +163,21 @@ body{
   color:var(--sub);
 }
 
-@media(max-width:1100px){
-  .content{grid-template-columns:1fr}
-  .left{border-right:none;padding-right:0;border-bottom:1px solid rgba(255,255,255,0.05);padding-bottom:30px}
+.hidden-mark{
+  position:absolute;
+  bottom:8px;
+  left:0;
+  right:0;
+  text-align:center;
+  font-size:18px;
+  letter-spacing:4px;
+  font-weight:700;
+  color:var(--panel);
+  user-select:text;
 }
-
 </style>
 </head>
+
 <body>
 
 <div class="wrapper">
@@ -208,7 +210,7 @@ body{
 
       <div class="meta">
         <span>状态</span>
-        <strong style="color:#1aff6b;">ONLINE</strong>
+        <strong style="color:var(--status-green)">ONLINE</strong>
       </div>
 
       <div class="badge">SUPREME CIVIL AUTHORITY · CITY CORE</div>
@@ -219,36 +221,12 @@ body{
       <section>
         <div class="section-title">TACTICAL PROFILE</div>
         <div class="grid">
-          <div class="item">
-            <span>战略决策统筹</span>
-            <strong>100%</strong>
-            <div class="bar"><div class="fill" style="width:100%"></div></div>
-          </div>
-          <div class="item">
-            <span>城市治理能力</span>
-            <strong>100%</strong>
-            <div class="bar"><div class="fill" style="width:100%"></div></div>
-          </div>
-          <div class="item">
-            <span>危机应对响应</span>
-            <strong>100%</strong>
-            <div class="bar"><div class="fill" style="width:100%"></div></div>
-          </div>
-          <div class="item">
-            <span>资源调配效率</span>
-            <strong>100%</strong>
-            <div class="bar"><div class="fill" style="width:100%"></div></div>
-          </div>
-          <div class="item">
-            <span>跨部门协同指数</span>
-            <strong>100%</strong>
-            <div class="bar"><div class="fill" style="width:100%"></div></div>
-          </div>
-          <div class="item">
-            <span>长期发展规划力</span>
-            <strong>100%</strong>
-            <div class="bar"><div class="fill" style="width:100%"></div></div>
-          </div>
+          <div class="item"><span>战略决策统筹</span><strong>100%</strong><div class="bar"><div class="fill" style="width:100%"></div></div></div>
+          <div class="item"><span>城市治理能力</span><strong>100%</strong><div class="bar"><div class="fill" style="width:100%"></div></div></div>
+          <div class="item"><span>危机应对响应</span><strong>100%</strong><div class="bar"><div class="fill" style="width:100%"></div></div></div>
+          <div class="item"><span>资源调配效率</span><strong>100%</strong><div class="bar"><div class="fill" style="width:100%"></div></div></div>
+          <div class="item"><span>跨部门协同指数</span><strong>100%</strong><div class="bar"><div class="fill" style="width:100%"></div></div></div>
+          <div class="item"><span>长期发展规划力</span><strong>100%</strong><div class="bar"><div class="fill" style="width:100%"></div></div></div>
         </div>
       </section>
 
@@ -256,13 +234,8 @@ body{
         <div class="section-title">MISSION LOG // CITY CORE</div>
         <div class="log">
           作为曙光市现任最高行政负责人，全面统筹城市建设、对外行动与内部秩序维护工作。
-          在多轮资源紧张与外部威胁加剧背景下，持续推进城市扩展计划与基础设施优化工程，
-          确保曙光市核心区域安全稳定运行。
-
-          主导建立跨部门协同机制，完善城市防御体系与经济循环结构，
-          为幸存者群体构建长期稳定的发展环境。
-
-          当前为曙光市最高决策节点，
+          在多重资源紧张与外部威胁加剧背景下，持续推进城市扩展计划与基础设施优化工程，
+          确保曙光市核心区域安全稳定运行。当前为曙光市最高决策节点，
           所有重大行动与战略部署最终审批源头。
         </div>
       </section>
@@ -276,10 +249,9 @@ body{
     <div>ARCHIVE HASH // SG-0000-OMEGA</div>
   </div>
 
+  <div class="hidden-mark">CUSTOM MEMBER</div>
+
 </div>
-  
-<!-- 定制角色隐藏标记 -->
-<div style="color:#0e1116;">定制角色</div>
-  
+
 </body>
 </html>
