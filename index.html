@@ -258,10 +258,17 @@ function query(){
     return;
   }
 
-  msg.innerText="直接数据库查询已锁定。请使用实体识别载体接入。";
+  if(input==="SG-OMEGA-0"){
+    window.location.href="/sg/omega/0/";
+    return;
+  }
+
+  msg.innerText="未授权识别码或数据库查询已锁定，请使用实体识别载体接入。";
 }
+
 
 </script>
 
 </body>
 </html>
+
