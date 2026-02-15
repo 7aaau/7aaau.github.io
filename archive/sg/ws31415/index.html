@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MDC - 曙光市战术数据终端</title>
+<link rel="icon" type="image/png" href="/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0e1116;
+  --panel:#141922;
+  --line:#ff6a00;
+  --accent:#ff6a00;
+  --text:#e6e6e6;
+  --sub:#8a8f99;
+  --grid:rgba(255,255,255,0.03);
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  background:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg,var(--grid) 1px, transparent 1px),
+    var(--bg);
+  background-size:40px 40px;
+  font-family:'Rajdhani','Noto Sans SC',sans-serif;
+  color:var(--text);
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:40px 20px;
+}
+
+.wrapper{
+  width:1300px;
+  max-width:100%;
+  background:var(--panel);
+  position:relative;
+  border-left:4px solid var(--accent);
+  box-shadow:0 0 80px rgba(255,106,0,0.08);
+}
+
+.topbar{
+  padding:20px 30px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid rgba(255,255,255,0.05);
+}
+
+.brand{
+  font-size:22px;
+  font-weight:700;
+  letter-spacing:3px;
+}
+
+.status{
+  font-size:14px;
+  color:var(--accent);
+  letter-spacing:2px;
+}
+
+.content{
+  display:grid;
+  grid-template-columns:360px 1fr;
+  gap:50px;
+  padding:50px;
+}
+
+.left{
+  border-right:1px solid rgba(255,255,255,0.05);
+  padding-right:40px;
+}
+
+.codename{
+  font-size:48px;
+  font-weight:700;
+  letter-spacing:4px;
+  margin-bottom:10px;
+}
+
+.role{
+  font-size:16px;
+  color:var(--sub);
+  margin-bottom:30px;
+}
+
+.meta{margin-bottom:20px;}
+
+.meta span{
+  display:block;
+  font-size:13px;
+  color:var(--sub);
+}
+
+.meta strong{
+  font-size:16px;
+  letter-spacing:1px;
+}
+
+.badge{
+  margin-top:25px;
+  padding:8px 0;
+  border-top:1px solid rgba(255,255,255,0.05);
+  border-bottom:1px solid rgba(255,255,255,0.05);
+  font-size:13px;
+  letter-spacing:2px;
+  color:var(--accent);
+}
+
+.right section{
+  margin-bottom:40px;
+}
+
+.section-title{
+  font-size:14px;
+  letter-spacing:3px;
+  color:var(--accent);
+  margin-bottom:20px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:25px 40px;
+}
+
+.item span{
+  display:block;
+  font-size:12px;
+  color:var(--sub);
+}
+
+.item strong{
+  font-size:16px;
+}
+
+.bar{
+  height:6px;
+  background:#1d2430;
+  margin-top:6px;
+  position:relative;
+}
+
+.fill{
+  height:100%;
+  background:var(--accent);
+}
+
+.log{
+  font-size:14px;
+  line-height:1.9;
+  color:#bfc4cc;
+  border-left:3px solid var(--accent);
+  padding-left:20px;
+}
+
+.footer{
+  padding:20px 30px;
+  border-top:1px solid rgba(255,255,255,0.05);
+  display:flex;
+  justify-content:space-between;
+  font-size:12px;
+  color:var(--sub);
+}
+
+@media(max-width:1100px){
+  .content{grid-template-columns:1fr}
+  .left{border-right:none;padding-right:0;border-bottom:1px solid rgba(255,255,255,0.05);padding-bottom:30px}
+}
+</style>
+</head>
+<body>
+
+<div class="wrapper">
+
+  <div class="topbar">
+    <div class="brand">SHUGUANG CITY JOINT TASK NETWORK</div>
+    <div class="status">CLEARANCE LEVEL : OMEGA-2 · DATA VERIFIED</div>
+  </div>
+
+  <div class="content">
+
+    <div class="left">
+      <div class="codename">GreatShuo</div>
+      <div class="role">防御工程部 · 首席工程师</div>
+
+      <div class="meta">
+        <span>防卫识别码</span>
+        <strong>SG-2778</strong>
+      </div>
+
+      <div class="meta">
+        <span>血型</span>
+        <strong>B+</strong>
+      </div>
+
+      <div class="meta">
+        <span>生物污染暴露指数</span>
+        <strong>未知</strong>
+      </div>
+
+      <div class="meta">
+        <span>状态</span>
+        <strong style="color:#1aff6b;">LIVE</strong>
+      </div>
+
+      <div class="badge">DEFENSE ENGINEERING PRIME ENGINEER</div>
+    </div>
+
+    <div class="right">
+
+      <section>
+        <div class="section-title">TACTICAL PROFILE</div>
+        <div class="grid">
+
+          <div class="item"><span>近距战术执行</span><strong>60%</strong><div class="bar"><div class="fill" style="width:82%"></div></div></div>
+          <div class="item"><span>远程火控精度</span><strong>97%</strong><div class="bar"><div class="fill" style="width:76%"></div></div></div>
+          <div class="item"><span>极端环境适应</span><strong>80%</strong><div class="bar"><div class="fill" style="width:88%"></div></div></div>
+          <div class="item"><span>神经负荷稳定</span><strong>50%</strong><div class="bar"><div class="fill" style="width:93%"></div></div></div>
+          <div class="item"><span>指挥协同效率</span><strong>99%</strong><div class="bar"><div class="fill" style="width:95%"></div></div></div>
+          <div class="item"><span>工程支援响应</span><strong>99%</strong><div class="bar"><div class="fill" style="width:98%"></div></div></div>
+
+        </div>
+      </section>
+
+      <section>
+        <div class="section-title">MISSION LOG</div>
+        <div class="log">
+          原特瑞拉公司建筑设计师，因故乡在特瑞拉公司实验泄露事件中被生物质污染而离职，现任职曙光市防御工程部首席工程师。作为生物质灾难的幸存者，向我市政府移交了其部分设计手稿，主导重构了烬区防御体系，并参与了有关废弃残害和有害生物质回收利用的研究。行为评估显示其极度懒散，每日工作时长不超过4小时且拒绝心理干预，但对于曙光市市长的号召格外重视。
+        </div>
+      </section>
+
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <div>MDC INTERNAL SIGNAL ROUTED · SHUGUANG NODE</div>
+    <div>ARCHIVE HASH // SG-2778</div>
+  </div>
+
+  <!-- 定制成员隐藏标记 -->
+  <div style="position:absolute;bottom:8px;left:0;right:0;text-align:center;font-size:18px;letter-spacing:4px;font-weight:700;color:#141922;user-select:text;">
+    CUSTOM MEMBER
+  </div>
+
+</div>
+
+</body>
+</html>
