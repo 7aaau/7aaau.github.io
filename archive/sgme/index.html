@@ -127,6 +127,42 @@ button{
     border:none;
     cursor:pointer;
 }
+
+/* ---------- 土到爆的文本框：红黑慢闪，悬浮链接 ---------- */
+@keyframes redblackFlash {
+    0% { background-color: #ff0000; }
+    50% { background-color: #1a0000; }  /* 近似黑，带点红底 */
+    100% { background-color: #ff0000; }
+}
+
+.screw-link {
+    position: fixed;
+    left: 30px;          /* 左下角，避开右下客服 */
+    bottom: 180px;       /* 抬高一点，别踩到footer */
+    background-color: #ff0000;
+    padding: 22px 35px;
+    border: 8px solid #ffff00;      /* 大黄边框，更土 */
+    font-size: 44px;
+    font-weight: 900;
+    color: #ffff00;                 /* 亮黄色文字 */
+    text-decoration: none;
+    text-shadow: 3px 3px 0px #000, 5px 5px 0px #ff0000;  /* 立体阴影，土味十足 */
+    z-index: 99999;
+    animation: redblackFlash 1.3s infinite;
+    text-align: center;
+    line-height: 1.2;
+    letter-spacing: 4px;             /* 字间距拉大，像老广告 */
+    font-family: "Microsoft YaHei", "黑体", sans-serif;
+    box-shadow: 10px 10px 0 rgba(0,0,0,0.5);  /* 重阴影 */
+    white-space: nowrap;
+}
+
+/* 鼠标放上去稍微变亮，但依然保持土味 */
+.screw-link:hover {
+    background-color: #cc0000;
+    border-color: #ffffff;
+    color: #ffff00;
+}
 </style>
 
 <script>
@@ -234,6 +270,11 @@ Q群：981763520
 <button onclick="closeModal()">立即加盟</button>
 </div>
 </div>
+
+<!-- ========== 土到爆的文本框：直招打螺丝！ 红黑慢闪，悬浮左下，随页面移动 ========== -->
+<a class="screw-link" href="https://mdcarchive.top/archive/sgme/gowork/" target="_blank" rel="noopener">
+    🔥 直招打螺丝！ 🔥
+</a>
 
 </body>
 </html>
