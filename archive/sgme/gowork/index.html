@@ -337,7 +337,7 @@
             gameWin = false;
             winOverlay.style.display = 'none';
             score = 0;
-            baseVy = 2.0;
+            baseVy = 1.0;
             scoreSpan.innerText = '0';
             paddleX = (W - PADDLE_W) / 2;
             ball.x = Math.random() * (W - 2 * ball.radius) + ball.radius;
@@ -547,7 +547,7 @@
 
                 if (dist < ball.radius) {
                     score++;
-                    baseVy += 0.2;
+                    baseVy += 0.05;
                     scoreSpan.innerText = score;
 
                     if (score >= 80) {
