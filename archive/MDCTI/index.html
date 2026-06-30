@@ -1,0 +1,1353 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>MDCTI</title>
+    <style>
+        /* ===== 全局重置 & 基础 ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'PingFang SC', Roboto, system-ui, -apple-system, sans-serif;
+            background: #0E1116;
+            color: #EAEAEA;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            margin: 0;
+            background-image:
+                radial-gradient(ellipse at 20% 50%, rgba(218, 78, 9, 0.06) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, rgba(218, 78, 9, 0.04) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 100%, rgba(218, 78, 9, 0.03) 0%, transparent 40%);
+            background-attachment: fixed;
+        }
+
+        /* ===== 主容器 ===== */
+        #app {
+            width: 100%;
+            max-width: 820px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .card {
+            background: rgba(20, 24, 30, 0.92);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 28px;
+            padding: 40px 36px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            min-height: 520px;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #DA4E09, #DA4E09 40%, transparent 100%);
+            opacity: 0.6;
+        }
+
+        /* ===== 页面切换 ===== */
+        .page {
+            display: none;
+            animation: fadeSlide 0.45s ease forwards;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeSlide {
+            0% {
+                opacity: 0;
+                transform: translateY(18px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== 首页 ===== */
+        .home-header {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .home-badge {
+            display: inline-block;
+            background: rgba(218, 78, 9, 0.15);
+            border: 1px solid rgba(218, 78, 9, 0.25);
+            color: #DA4E09;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 4px 16px;
+            border-radius: 30px;
+            margin-bottom: 16px;
+        }
+
+        .home-title {
+            font-size: 42px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #FFFFFF 40%, #DA4E09 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.15;
+            margin-bottom: 6px;
+        }
+
+        .home-sub {
+            font-size: 18px;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.5);
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+
+        .home-divider {
+            width: 60px;
+            height: 2px;
+            background: rgba(218, 78, 9, 0.4);
+            margin: 12px auto 20px;
+            border-radius: 2px;
+        }
+
+        .home-desc {
+            font-size: 15px;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 600px;
+            margin: 0 auto 28px;
+            text-align: center;
+        }
+
+        .home-desc strong {
+            color: #DA4E09;
+            font-weight: 600;
+        }
+
+        .home-meta {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.35);
+            margin-bottom: 30px;
+        }
+
+        .home-meta span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .home-meta .dot {
+            display: inline-block;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: #DA4E09;
+            opacity: 0.5;
+        }
+
+        .btn-start {
+            display: block;
+            width: 100%;
+            max-width: 320px;
+            margin: 0 auto;
+            padding: 18px 32px;
+            font-size: 18px;
+            font-weight: 700;
+            color: #FFFFFF;
+            background: linear-gradient(135deg, #DA4E09, #b84308);
+            border: none;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+            box-shadow: 0 8px 30px rgba(218, 78, 9, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-start:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(218, 78, 9, 0.4);
+        }
+
+        .btn-start:active {
+            transform: scale(0.97);
+        }
+
+        .btn-start::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .btn-start:hover::after {
+            opacity: 1;
+        }
+
+        /* ===== 答题页 ===== */
+        .quiz-progress {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 28px;
+        }
+
+        .progress-track {
+            flex: 1;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #DA4E09, #f05a1a);
+            border-radius: 4px;
+            transition: width 0.5s ease;
+            width: 0%;
+        }
+
+        .progress-text {
+            font-size: 14px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.4);
+            white-space: nowrap;
+            min-width: 56px;
+            text-align: right;
+        }
+
+        .question-number {
+            font-size: 13px;
+            font-weight: 600;
+            color: #DA4E09;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        .question-text {
+            font-size: 20px;
+            font-weight: 600;
+            line-height: 1.6;
+            margin-bottom: 28px;
+            color: #F0F0F0;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option-btn {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 18px 24px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            color: #D0D0D0;
+            font-size: 16px;
+            line-height: 1.5;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            font-family: inherit;
+            position: relative;
+        }
+
+        .option-btn:hover {
+            background: rgba(218, 78, 9, 0.10);
+            border-color: rgba(218, 78, 9, 0.25);
+            transform: translateX(4px);
+        }
+
+        .option-btn:active {
+            transform: scale(0.98);
+        }
+
+        .option-btn .label {
+            display: inline-block;
+            font-weight: 700;
+            color: #DA4E09;
+            margin-right: 12px;
+            font-size: 14px;
+            opacity: 0.7;
+        }
+
+        .option-btn.selected {
+            background: rgba(218, 78, 9, 0.18);
+            border-color: #DA4E09;
+            color: #FFFFFF;
+            transform: translateX(6px);
+        }
+
+        .option-btn.selected .label {
+            opacity: 1;
+        }
+
+        /* ===== 结果页 ===== */
+        .result-header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .result-badge {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 4px 16px;
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: rgba(255, 255, 255, 0.4);
+            margin-bottom: 10px;
+        }
+
+        .result-faction {
+            font-size: 34px;
+            font-weight: 800;
+            letter-spacing: -0.3px;
+            margin-bottom: 4px;
+        }
+
+        .result-faction-sub {
+            font-size: 16px;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.4);
+            letter-spacing: 1px;
+        }
+
+        .result-divider {
+            width: 50px;
+            height: 2px;
+            margin: 16px auto 20px;
+            border-radius: 2px;
+            background: currentColor;
+            opacity: 0.3;
+        }
+
+        .result-desc {
+            font-size: 15px;
+            line-height: 1.9;
+            color: rgba(255, 255, 255, 0.78);
+            text-align: center;
+            max-width: 680px;
+            margin: 0 auto 28px;
+        }
+
+        .result-desc em {
+            color: #DA4E09;
+            font-style: normal;
+            font-weight: 500;
+        }
+
+        .result-quote {
+            font-size: 14px;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.4);
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 28px;
+            padding: 16px 20px;
+            border-left: 2px solid rgba(218, 78, 9, 0.3);
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+        }
+
+        /* ===== 雷达图容器 ===== */
+        .chart-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 10px 0 24px;
+        }
+
+        .chart-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 380px;
+            aspect-ratio: 1/1;
+        }
+
+        #radarChart {
+            width: 100%;
+            height: 100%;
+            display: block;
+            border-radius: 12px;
+        }
+
+        .chart-legend {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px 20px;
+            margin-top: 14px;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .chart-legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .chart-legend-item .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        /* ===== 维度条（双向进度条） ===== */
+        .dimension-bars {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin: 16px 0 8px;
+        }
+
+        .dimension-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 13px;
+        }
+
+        .dimension-label {
+            width: 68px;
+            text-align: right;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.4);
+            flex-shrink: 0;
+            font-size: 12px;
+            transition: color 0.3s;
+        }
+
+        .dimension-track {
+            flex: 1;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 6px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dimension-track .center-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            width: 1px;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.15);
+            z-index: 2;
+        }
+
+        .dimension-fill-pos,
+        .dimension-fill-neg {
+            position: absolute;
+            top: 0;
+            height: 100%;
+            border-radius: 6px;
+            transition: width 0.6s ease;
+            z-index: 1;
+        }
+
+        .dimension-fill-pos {
+            left: 50%;
+            border-radius: 0 6px 6px 0;
+        }
+
+        .dimension-fill-neg {
+            right: 50%;
+            border-radius: 6px 0 0 6px;
+        }
+
+        .dimension-value {
+            width: 44px;
+            font-size: 12px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.5);
+            text-align: right;
+            flex-shrink: 0;
+            transition: color 0.3s;
+        }
+
+        /* ===== 按钮 ===== */
+        .btn-restart {
+            display: inline-block;
+            padding: 14px 36px;
+            font-size: 15px;
+            font-weight: 600;
+            color: #FFFFFF;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.10);
+            border-radius: 60px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            margin-top: 10px;
+        }
+
+        .btn-restart:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-2px);
+        }
+
+        .btn-restart:active {
+            transform: scale(0.97);
+        }
+
+        .result-actions {
+            display: flex;
+            justify-content: center;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin-top: 6px;
+        }
+
+        /* ===== 响应式 ===== */
+        @media (max-width: 640px) {
+            .card {
+                padding: 28px 18px;
+                border-radius: 20px;
+                min-height: 440px;
+            }
+
+            .home-title {
+                font-size: 30px;
+            }
+
+            .home-sub {
+                font-size: 15px;
+            }
+
+            .home-desc {
+                font-size: 14px;
+                padding: 0 4px;
+            }
+
+            .question-text {
+                font-size: 17px;
+            }
+
+            .option-btn {
+                font-size: 15px;
+                padding: 15px 18px;
+            }
+
+            .result-faction {
+                font-size: 26px;
+            }
+
+            .result-desc {
+                font-size: 14px;
+            }
+
+            .dimension-label {
+                width: 54px;
+                font-size: 11px;
+            }
+
+            .dimension-value {
+                width: 34px;
+                font-size: 11px;
+            }
+
+            .chart-legend {
+                font-size: 10px;
+                gap: 8px 14px;
+            }
+
+            .home-meta {
+                font-size: 12px;
+                gap: 14px;
+            }
+
+            .btn-start {
+                font-size: 16px;
+                padding: 16px 24px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .card {
+                padding: 20px 14px;
+            }
+
+            .question-text {
+                font-size: 15px;
+            }
+
+            .option-btn {
+                font-size: 14px;
+                padding: 13px 14px;
+            }
+
+            .result-faction {
+                font-size: 22px;
+            }
+        }
+
+        /* ===== 工具类 ===== */
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-4 {
+            margin-top: 16px;
+        }
+
+        .mt-6 {
+            margin-top: 24px;
+        }
+
+        .faction-color {
+            color: var(--faction-color, #DA4E09);
+        }
+
+        .border-color {
+            border-color: var(--faction-color, #DA4E09);
+        }
+
+        /* 滚动条美化 */
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.02);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(218, 78, 9, 0.3);
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="app">
+        <div class="card" id="mainCard">
+
+            <!-- ===== 首页 ===== -->
+            <div class="page active" id="pageHome">
+                <div class="home-header">
+                    <div class="home-badge">✦ 曙光市应用技术与超规工程部门 · 心理评估</div>
+                    <div class="home-title">末日理念评估</div>
+                    <div class="home-sub">SURVIVOR MINDSET PROFILE</div>
+                    <div class="home-divider"></div>
+                    <p class="home-desc">
+                        基于 <strong>15 项情境抉择</strong>，解析您在极端环境下的思维模式与价值取向。
+                        测试结果将为您匹配最契合的 <strong>虚拟阵营</strong>，仅供娱乐，无关游戏内数据。
+                    </p>
+                    <div class="home-meta">
+                        <span><span class="dot"></span> 约 2 分钟</span>
+                        <span><span class="dot"></span> 15 道情境题</span>
+                        <span><span class="dot"></span> 8 种理念型格</span>
+                    </div>
+                </div>
+                <button class="btn-start" id="btnStart">开始评估 →</button>
+            </div>
+
+            <!-- ===== 答题页 ===== -->
+            <div class="page" id="pageQuiz">
+                <div class="quiz-progress">
+                    <div class="progress-track">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <span class="progress-text" id="progressText">1/15</span>
+                </div>
+                <div class="question-number" id="qNumber">问题 01</div>
+                <div class="question-text" id="qText">加载中...</div>
+                <div class="options" id="optionsContainer"></div>
+            </div>
+
+            <!-- ===== 结果页 ===== -->
+            <div class="page" id="pageResult">
+                <div class="result-header">
+                    <div class="result-badge">✦ 理念型格 · 评估完成</div>
+                    <div class="result-faction" id="resultFaction">—</div>
+                    <div class="result-faction-sub" id="resultFactionSub">—</div>
+                    <div class="result-divider" id="resultDivider"></div>
+                </div>
+                <div class="result-desc" id="resultDesc">加载中...</div>
+                <div class="result-quote" id="resultQuote">—</div>
+
+                <div class="chart-container">
+                    <div class="chart-wrapper">
+                        <canvas id="radarChart"></canvas>
+                    </div>
+                    <div class="chart-legend" id="chartLegend"></div>
+                </div>
+
+                <div class="dimension-bars" id="dimensionBars"></div>
+
+                <div class="result-actions mt-6">
+                    <button class="btn-restart" id="btnRestart">⟳ 重新测试</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // ============================================================
+        //  数据定义（原始问题模板，每次测试会打乱）
+        // ============================================================
+
+        const RAW_QUESTIONS = [{
+            id: 1,
+            text: '在废土上探索时，你与小队发现了一座被遗忘的旧世界地下军事设施。入口的电子锁已损坏，内部传来未知的机械运转声。你的第一反应是：',
+            options: [
+                { label: 'A', text: '立刻寻找其他入口或尝试破解，这是一次不可错过的机遇。', dim: 0, dir: 1 },
+                { label: 'B', text: '先标记在地图上，设置简易监控，返回基地报告，等待充分准备。', dim: 0, dir: -1 }
+            ]
+        }, {
+            id: 2,
+            text: '关于末日生存，你更认同以下哪种观点？',
+            options: [
+                { label: 'A', text: '生存的关键在于走出去——主动收集情报、建立外交、探索未知，掌握主动权。', dim: 0, dir: 1 },
+                { label: 'B', text: '生存的关键在于守住根基——经营稳固基地，建立自给自足循环，以不变应万变。', dim: 0, dir: -1 }
+            ]
+        }, {
+            id: 3,
+            text: '你在广播中听到一个陌生势力宣称发现了"灾变的终极真相"，并邀请幸存者前去会面。你会：',
+            options: [
+                { label: 'A', text: '这可能是唯一的突破口！我愿意冒险前往，亲自听听他们说什么。', dim: 0, dir: 1 },
+                { label: 'B', text: '过于可疑，很可能是陷阱。先通过其他渠道验证其可信度再决定。', dim: 0, dir: -1 }
+            ]
+        }, {
+            id: 4,
+            text: '你如何理解"烬区"这种时空异常的独立区域？',
+            options: [
+                { label: 'A', text: '它是一种可利用的资源——虽然危险，但能定期产出旧世界物资，掌握好时机即可。', dim: 1, dir: -1 },
+                { label: 'B', text: '它是一种需要被理解的"现象"——它揭示着世界更深层的规则，比物资更有研究价值。', dim: 1, dir: 1 }
+            ]
+        }, {
+            id: 5,
+            text: '你看到一幅描绘"灾变后人类文明在群星中复兴"的壁画。你的第一感受是：',
+            options: [
+                { label: 'A', text: '艺术作品虽然美好，但当前任务是解决食物、水源和防御。先把眼前的事做好。', dim: 1, dir: -1 },
+                { label: 'B', text: '这幅画让我振奋！我们需要这样的愿景来凝聚人心，文明需要想象。', dim: 1, dir: 1 }
+            ]
+        }, {
+            id: 6,
+            text: '在决策会议上，出现了一个"无法用现有数据证伪但能解释很多现象"的假说。你会：',
+            options: [
+                { label: 'A', text: '在没有证据之前，它只是猜测，不应作为政策依据。基于确定事实行动。', dim: 1, dir: -1 },
+                { label: 'B', text: '值得认真探讨。有些真相需要跳出框架去捕捉，不应过早否定"看似不可能"的可能。', dim: 1, dir: 1 }
+            ]
+        }, {
+            id: 7,
+            text: '当你第一次进入曙光市，看到这座建立在废墟上的立体城市时，你脑海中首先浮现的是什么？',
+            options: [
+                { label: 'A', text: '这座城市的设计非常实用——充分利用旧世界骨架，形成高效的防御与生活体系。', dim: 1, dir: -1 },
+                { label: 'B', text: '这座城市是希望的象征——证明了人类的韧性和创造力，在毁灭中重生。', dim: 1, dir: 1 }
+            ]
+        }, {
+            id: 8,
+            text: '探索小队从"烬区"救回一名重伤的陌生人，他自称是特瑞拉前研究员，愿提供机密情报换取庇护。但他明显参与过危险生物实验。作为决策者，你会：',
+            options: [
+                { label: 'A', text: '立即进行最高效率的情报审讯，必要时可动用非常规手段。他掌握的信息可能拯救成千上万人。', dim: 2, dir: 1 },
+                { label: 'B', text: '先确保他生命安全，给予人道待遇和医疗，通过建立信任来换取情报。长期看更利于合作。', dim: 2, dir: -1 }
+            ]
+        }, {
+            id: 9,
+            text: '城市粮食储备降至警戒线，下一批物资至少两周后才到。你被授权分配最后一批储备粮。你的方案是：',
+            options: [
+                { label: 'A', text: '建立以"贡献值"为核心的计算公式——按工时、战功、技能来分配，维持社会运行效率。', dim: 2, dir: 1 },
+                { label: 'B', text: '优先保障儿童、老人、孕妇和伤患，青壮年动员去城外狩猎补充。共同体理应照顾弱小。', dim: 2, dir: -1 }
+            ]
+        }, {
+            id: 10,
+            text: '你的挚友在任务中违反了关键安全协议，导致多名队员受伤。按照军规，他应被严肃处分。你会：',
+            options: [
+                { label: 'A', text: '严格执行军规，给予应得处分。规则的尊严不容践踏，私情不能凌驾于集体安全之上。', dim: 2, dir: 1 },
+                { label: 'B', text: '先与他沟通了解实际情况，也许有客观因素。我会尽力为他争取减轻处罚的机会。', dim: 2, dir: -1 }
+            ]
+        }, {
+            id: 11,
+            text: '你更喜欢以下哪一种工作环境？',
+            options: [
+                { label: 'A', text: '任务目标明确、流程清晰、分工固定。这样我才能高效运转，知道何时该做什么。', dim: 3, dir: 1 },
+                { label: 'B', text: '任务灵活、每个人可根据现场调整角色、流程可随时优化。这样才有创造力和应变空间。', dim: 3, dir: -1 }
+            ]
+        }, {
+            id: 12,
+            text: '当你面对一份新的"烬区探索任务简报"时，你希望简报：',
+            options: [
+                { label: 'A', text: '包含详尽地图、时间窗口、敌人分布和撤离路线。我喜欢行动前就心中有数。', dim: 3, dir: 1 },
+                { label: 'B', text: '只提供核心目标和关键注意事项即可。太多规划反而限制临场判断，废土充满变量。', dim: 3, dir: -1 }
+            ]
+        }, {
+            id: 13,
+            text: '你最反感以下哪种情况？',
+            options: [
+                { label: 'A', text: '计划突然变更，或关键人员在行动前临时换人。这让所有准备白费，我讨厌失控。', dim: 3, dir: 1 },
+                { label: 'B', text: '一成不变的日常循环——每天同一条路线、同一种食物、同一个流程。我需要变化。', dim: 3, dir: -1 }
+            ]
+        }, {
+            id: 14,
+            text: '如果有一个"绝对安全的"方式能让你窥见"灾变"发生那一刻的完整真相，但代价是你必须独自承担这份记忆，无法与任何人分享——你会选择看吗？',
+            options: [
+                { label: 'A', text: '会。我宁愿承受真相的痛苦，也不愿活在无知的庇护下。知道了根源，才有可能终结。', dim: 4, dir: 1 },
+                { label: 'B', text: '不会。有些真相可能比灾难本身更具毁灭性。无法改变的真相只会带来绝望。', dim: 4, dir: -1 }
+            ]
+        }, {
+            id: 15,
+            text: '你对"未知"的态度更接近以下哪一种？',
+            options: [
+                { label: 'A', text: '"未知"是挑战，是一扇等待被推开的大门。每一次揭开未知，都在拓展认知边界。', dim: 4, dir: 1 },
+                { label: 'B', text: '"未知"是深渊，需要被谨慎对待。有些门一旦打开就再也关不上，文明需要知道何时止步。', dim: 4, dir: -1 }
+            ]
+        }];
+
+        // -------- 势力定义 --------
+        const FACTIONS = [{
+            id: 'winter',
+            name: '冬幕阵线',
+            sub: 'The Winter Curtain Line',
+            color: '#808080',
+            desc: '你是"帷幕"的破局者，文明的执旗人。拥有卓越的远见与钢铁般的执行力，你深信只有主动出击、追根溯源，才能真正终结浩劫。你不畏惧牺牲，早已准备好承担真相的重量。',
+            quote: '「我们将在BUNPO的领导下一起致力于找到事情的真相，阻止一切末日情景的发生，哪怕失去我们的一切。」',
+            dims: [1, 1, 0, 0, 1]
+        }, {
+            id: 'terrela',
+            name: '特瑞拉公司',
+            sub: 'TERRELA CORPORATION',
+            color: '#000000',
+            desc: '你是新秩序的构造者，现实的炼金术士。你不相信空谈，坚信真正有效的是技术、是控制、是效率。你愿意踏入灰色领域，因为重建文明需要的不只是理想，更是手段。',
+            quote: '「真正的控制，始于对灾难根源的掌握。」',
+            dims: [1, -1, 1, 0, 0]
+        }, {
+            id: 'northstar',
+            name: '北极星',
+            sub: 'NorthStar Archive',
+            color: '#495bad',
+            desc: '你是文明的铸火者，孤独的守夜人。你活在两个世界里——眼前的废墟，和你脑海中那个必须被复兴的旧日文明。你沉默、严谨、近乎冷酷，因为复兴是一场不能失误的精密工程。',
+            quote: '「为了文明的延续，我们将不惜一切代价。」',
+            dims: [-1, 1, 1, 1, 0]
+        }, {
+            id: 'aurora',
+            name: '曙光市',
+            sub: 'AURORA · 幸存者之城',
+            color: '#47464c',
+            desc: '你是废墟上的筑墙人，秩序的基石。你不追逐虚无的真相，也不迷恋危险的科技。你相信活下去的方式，就是把眼前的事做到最好——修好墙、种出粮、安排好列车。',
+            quote: '「这趟定期驶出的地铁，是曙光向废墟深处投去的下一道探照灯光。」',
+            dims: [-1, -1, 0, 1, 0]
+        }, {
+            id: 'msc',
+            name: 'MSC 无国界医疗',
+            sub: 'Medical · Survival · Cooperation',
+            color: '#c40001',
+            desc: '你是废墟中的治愈者，人性的守护神。在你的价值排序里，每一条生命都是不可替代的。你在枪林弹雨中缝合伤口，在瘟疫蔓延时分发药物——不为自己立碑，只为心跳延续。',
+            quote: '「超越阵营，拯救生命。这不仅是口号，更是末日里最后的人性底线。」',
+            dims: [0, 0, -1, -1, 0]
+        }, {
+            id: 'church',
+            name: '末日教会 · 审判庭',
+            sub: 'Doomsday Church · Inquisition',
+            color: '#a8a1cd',
+            desc: '你是神罚的代行者，净世之火。你见过人类因好奇打开的潘多拉魔盒，你见过不该存在于世的"东西"如何腐蚀一切。你的仁慈是冷酷的仁慈——肃清异端，即为拯救。',
+            quote: '「异端必须被肃清，无论它以何种形态出现。」',
+            dims: [0, 1, 1, 0, -1]
+        }, {
+            id: 'saints',
+            name: '废墟圣徒会',
+            sub: 'Ruined Saints',
+            color: '#e2807d',
+            desc: '你是混沌的信徒，新神的先知。你早已不信任旧世界的规则——瘟疫、战争、烬区，这些不是"灾难"，而是"启示"。你拥抱突变、拥抱混乱，追随末日本身的意志。',
+            quote: '「在旧世界的残骸上，将升起我们新的圣殿。」',
+            dims: [0, 1, 0, -1, 0]
+        }, {
+            id: 'guild',
+            name: '冒险家协会',
+            sub: 'Adventurer\'s Guild · 自由探索者',
+            color: '#DA4E09',
+            desc: '你是一枚未被打磨的原石，无法被任何旗帜收编。你理解所有人的逻辑，却又不完全认同任何一方。你是各方都想争取的变量，也是唯一可能串联起不同答案的人。',
+            quote: '「世界之外还有世界，故事之外仍有故事。」',
+            dims: [0, 0, 0, 0, 0]
+        }];
+
+        const DIM_NAMES = ['开拓者 vs 守望者', '现实派 vs 理念派', '钢铁准则 vs 同理心', '秩序派 vs 适应派', '探测 vs 守护'];
+        const DIM_SHORT = ['E/I', 'S/N', 'T/F', 'J/P', '探/守'];
+
+        // ============================================================
+        //  状态
+        // ============================================================
+        let state = {
+            currentQuestion: 0,
+            answers: [], // 每个元素: { dim, dir }
+            isComplete: false,
+            result: null,
+            questions: [] // 当前测试使用的题目副本（已打乱）
+        };
+
+        // DOM 缓存
+        const $ = id => document.getElementById(id);
+        const pages = {
+            home: $('pageHome'),
+            quiz: $('pageQuiz'),
+            result: $('pageResult')
+        };
+
+        // ============================================================
+        //  工具函数
+        // ============================================================
+        function shuffleArray(arr) {
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        // 深拷贝题目副本并打乱
+        function createShuffledQuestions() {
+            // 深拷贝
+            const copy = RAW_QUESTIONS.map(q => ({
+                ...q,
+                options: q.options.map(opt => ({ ...opt }))
+            }));
+            // 打乱题目顺序
+            shuffleArray(copy);
+            // 对每道题的选项打乱并重新分配 A/B
+            copy.forEach(q => {
+                shuffleArray(q.options);
+                q.options.forEach((opt, idx) => {
+                    opt.label = String.fromCharCode(65 + idx);
+                });
+            });
+            return copy;
+        }
+
+        // ============================================================
+        //  核心逻辑
+        // ============================================================
+
+        function computeDimensionScores(answers) {
+            const scores = [0, 0, 0, 0, 0];
+            const counts = [0, 0, 0, 0, 0];
+            for (const a of answers) {
+                scores[a.dim] += a.dir;
+                counts[a.dim]++;
+            }
+            for (let i = 0; i < 5; i++) {
+                if (counts[i] > 0) {
+                    const avg = scores[i] / counts[i];
+                    scores[i] = Math.round(avg * 100);
+                } else {
+                    scores[i] = 0;
+                }
+                scores[i] = Math.max(-100, Math.min(100, scores[i]));
+            }
+            return scores;
+        }
+
+        function computeFactionMatches(scores) {
+            return FACTIONS.map(f => {
+                const dims = f.dims;
+                let total = 0;
+                let count = 0;
+                for (let i = 0; i < 5; i++) {
+                    const target = dims[i];
+                    const score = scores[i];
+                    let match = 0;
+                    if (target === 0) {
+                        match = 1 - Math.min(1, Math.abs(score) / 100);
+                    } else if (target === 1) {
+                        match = Math.max(0, score / 100);
+                    } else {
+                        match = Math.max(0, -score / 100);
+                    }
+                    total += match;
+                    count++;
+                }
+                if (f.id === 'guild') {
+                    const avgAbs = scores.reduce((s, v) => s + Math.abs(v), 0) / 5;
+                    const balance = 1 - Math.min(1, avgAbs / 100);
+                    return { faction: f, match: balance * 0.9 + 0.1 };
+                }
+                return { faction: f, match: total / count };
+            });
+        }
+
+        function getBestFaction(scores) {
+            const matches = computeFactionMatches(scores);
+            matches.sort((a, b) => b.match - a.match);
+            if (matches[0].match < 0.15) {
+                const guild = FACTIONS.find(f => f.id === 'guild');
+                return { faction: guild, match: 0.5 };
+            }
+            return matches[0];
+        }
+
+        // ============================================================
+        //  UI 渲染
+        // ============================================================
+
+        function showPage(pageId) {
+            Object.keys(pages).forEach(key => {
+                pages[key].classList.toggle('active', key === pageId);
+            });
+        }
+
+        function renderQuestion(index) {
+            const q = state.questions[index];
+            if (!q) return;
+            $('qNumber').textContent = `问题 ${String(index+1).padStart(2,'0')}`;
+            $('qText').textContent = q.text;
+            const container = $('optionsContainer');
+            container.innerHTML = '';
+            q.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.innerHTML = `<span class="label">${opt.label}</span> ${opt.text}`;
+                btn.dataset.index = idx;
+                btn.addEventListener('click', () => handleOptionClick(index, idx));
+                container.appendChild(btn);
+            });
+            const total = state.questions.length;
+            const progress = ((index) / total) * 100;
+            $('progressFill').style.width = progress + '%';
+            $('progressText').textContent = `${index+1}/${total}`;
+        }
+
+        function handleOptionClick(qIndex, optIndex) {
+            const q = state.questions[qIndex];
+            const opt = q.options[optIndex];
+            state.answers.push({ dim: opt.dim, dir: opt.dir });
+            const btns = $('optionsContainer').querySelectorAll('.option-btn');
+            btns.forEach((b, i) => b.classList.toggle('selected', i === optIndex));
+            btns.forEach(b => b.style.pointerEvents = 'none');
+
+            const next = qIndex + 1;
+            if (next < state.questions.length) {
+                setTimeout(() => {
+                    state.currentQuestion = next;
+                    renderQuestion(next);
+                    document.getElementById('mainCard').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 350);
+            } else {
+                setTimeout(() => {
+                    state.isComplete = true;
+                    showResult();
+                }, 400);
+            }
+        }
+
+        // ============================================================
+        //  结果页
+        // ============================================================
+
+        function showResult() {
+            const scores = computeDimensionScores(state.answers);
+            const best = getBestFaction(scores);
+            const faction = best.faction;
+            state.result = faction;
+
+            const color = faction.color || '#DA4E09';
+            document.documentElement.style.setProperty('--faction-color', color);
+
+            $('resultFaction').textContent = faction.name;
+            $('resultFaction').style.color = color;
+            $('resultFactionSub').textContent = faction.sub;
+            $('resultDivider').style.background = color;
+            $('resultDivider').style.opacity = '0.4';
+
+            $('resultDesc').innerHTML = faction.desc.replace(/\n/g, '<br>');
+            $('resultQuote').textContent = faction.quote;
+
+            renderDimensionBars(scores, color);
+            renderRadarChart(scores, color);
+            renderChartLegend(scores);
+
+            showPage('result');
+            document.getElementById('mainCard').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // -------- 双向进度条 --------
+        function renderDimensionBars(scores, color) {
+            const container = $('dimensionBars');
+            container.innerHTML = '';
+            const labels = ['开拓者', '现实派', '钢铁准则', '秩序派', '探测'];
+            const labelsRight = ['守望者', '理念派', '同理心', '适应派', '守护'];
+            const posColor = '#DA4E09';
+            const negColor = '#4a6fa5';
+
+            scores.forEach((score, i) => {
+                const row = document.createElement('div');
+                row.className = 'dimension-row';
+
+                // 左标签
+                const leftLabel = document.createElement('span');
+                leftLabel.className = 'dimension-label';
+                leftLabel.textContent = labels[i];
+                leftLabel.style.color = score >= 0 ? posColor : 'rgba(255,255,255,0.25)';
+
+                // 轨道
+                const track = document.createElement('div');
+                track.className = 'dimension-track';
+
+                // 中心线
+                const center = document.createElement('div');
+                center.className = 'center-line';
+                track.appendChild(center);
+
+                const absVal = Math.abs(score);
+                const pct = Math.min(absVal, 100);
+
+                if (score >= 0) {
+                    const fill = document.createElement('div');
+                    fill.className = 'dimension-fill-pos';
+                    fill.style.width = pct + '%';
+                    fill.style.background = `linear-gradient(90deg, ${posColor}, ${color})`;
+                    track.appendChild(fill);
+                } else {
+                    const fill = document.createElement('div');
+                    fill.className = 'dimension-fill-neg';
+                    fill.style.width = pct + '%';
+                    fill.style.background = `linear-gradient(270deg, ${negColor}, #8aafd5)`;
+                    track.appendChild(fill);
+                }
+
+                // 右标签
+                const rightLabel = document.createElement('span');
+                rightLabel.className = 'dimension-label';
+                rightLabel.textContent = labelsRight[i];
+                rightLabel.style.color = score < 0 ? negColor : 'rgba(255,255,255,0.25)';
+
+                // 数值
+                const val = document.createElement('span');
+                val.className = 'dimension-value';
+                val.textContent = score > 0 ? `+${score}` : `${score}`;
+                val.style.color = score >= 0 ? posColor : negColor;
+
+                row.appendChild(leftLabel);
+                row.appendChild(track);
+                row.appendChild(rightLabel);
+                row.appendChild(val);
+                container.appendChild(row);
+            });
+        }
+
+        // -------- 雷达图 --------
+        function renderRadarChart(scores, color) {
+            const canvas = $('radarChart');
+            const rect = canvas.parentElement.getBoundingClientRect();
+            const size = Math.min(rect.width || 380, 380);
+            const dpr = window.devicePixelRatio || 1;
+            canvas.width = size * dpr;
+            canvas.height = size * dpr;
+            canvas.style.width = size + 'px';
+            canvas.style.height = size + 'px';
+
+            const ctx = canvas.getContext('2d');
+            ctx.scale(dpr, dpr);
+
+            const centerX = size / 2;
+            const centerY = size / 2;
+            const radius = Math.min(size * 0.38, 150);
+            const labels = ['开拓', '现实', '准则', '秩序', '探测'];
+            const numAxes = 5;
+
+            ctx.clearRect(0, 0, size, size);
+
+            // 网格
+            for (let ring = 1; ring <= 3; ring++) {
+                const r = (radius / 3) * ring;
+                ctx.beginPath();
+                for (let i = 0; i < numAxes; i++) {
+                    const angle = -Math.PI / 2 + (i / numAxes) * 2 * Math.PI;
+                    const x = centerX + r * Math.cos(angle);
+                    const y = centerY + r * Math.sin(angle);
+                    if (i === 0) ctx.moveTo(x, y);
+                    else ctx.lineTo(x, y);
+                }
+                ctx.closePath();
+                ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+                ctx.lineWidth = 1;
+                ctx.stroke();
+            }
+
+            // 轴线
+            for (let i = 0; i < numAxes; i++) {
+                const angle = -Math.PI / 2 + (i / numAxes) * 2 * Math.PI;
+                const x = centerX + radius * Math.cos(angle);
+                const y = centerY + radius * Math.sin(angle);
+                ctx.beginPath();
+                ctx.moveTo(centerX, centerY);
+                ctx.lineTo(x, y);
+                ctx.strokeStyle = 'rgba(255,255,255,0.06)';
+                ctx.lineWidth = 1;
+                ctx.stroke();
+
+                const labelRadius = radius + 18;
+                const lx = centerX + labelRadius * Math.cos(angle);
+                const ly = centerY + labelRadius * Math.sin(angle);
+                ctx.fillStyle = 'rgba(255,255,255,0.3)';
+                ctx.font = '11px "Segoe UI", sans-serif';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(labels[i], lx, ly);
+            }
+
+            // 数据多边形
+            const dataPoints = scores.map(s => {
+                const normalized = (s + 100) / 200;
+                return (normalized * 0.9 + 0.05) * radius;
+            });
+
+            ctx.beginPath();
+            for (let i = 0; i < numAxes; i++) {
+                const angle = -Math.PI / 2 + (i / numAxes) * 2 * Math.PI;
+                const r = dataPoints[i];
+                const x = centerX + r * Math.cos(angle);
+                const y = centerY + r * Math.sin(angle);
+                if (i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            }
+            ctx.closePath();
+
+            const grad = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, radius);
+            const c = color || '#DA4E09';
+            grad.addColorStop(0, c + '40');
+            grad.addColorStop(1, c + '10');
+            ctx.fillStyle = grad;
+            ctx.fill();
+            ctx.strokeStyle = c;
+            ctx.lineWidth = 2.5;
+            ctx.stroke();
+
+            for (let i = 0; i < numAxes; i++) {
+                const angle = -Math.PI / 2 + (i / numAxes) * 2 * Math.PI;
+                const r = dataPoints[i];
+                const x = centerX + r * Math.cos(angle);
+                const y = centerY + r * Math.sin(angle);
+                ctx.beginPath();
+                ctx.arc(x, y, 4, 0, 2 * Math.PI);
+                ctx.fillStyle = c;
+                ctx.fill();
+                ctx.shadowColor = c + '60';
+                ctx.shadowBlur = 8;
+                ctx.fill();
+                ctx.shadowBlur = 0;
+            }
+
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, 3, 0, 2 * Math.PI);
+            ctx.fillStyle = 'rgba(255,255,255,0.15)';
+            ctx.fill();
+        }
+
+        function renderChartLegend(scores) {
+            const container = $('chartLegend');
+            container.innerHTML = '';
+            const items = [
+                { label: '开拓者', color: '#DA4E09', active: scores[0] >= 0 },
+                { label: '守望者', color: '#4a6fa5', active: scores[0] < 0 },
+                { label: '现实派', color: '#DA4E09', active: scores[1] < 0 },
+                { label: '理念派', color: '#4a6fa5', active: scores[1] >= 0 },
+                { label: '钢铁准则', color: '#DA4E09', active: scores[2] >= 0 },
+                { label: '同理心', color: '#4a6fa5', active: scores[2] < 0 },
+                { label: '秩序派', color: '#DA4E09', active: scores[3] >= 0 },
+                { label: '适应派', color: '#4a6fa5', active: scores[3] < 0 },
+                { label: '探测者', color: '#DA4E09', active: scores[4] >= 0 },
+                { label: '守护者', color: '#4a6fa5', active: scores[4] < 0 }
+            ];
+            items.forEach(item => {
+                const span = document.createElement('span');
+                span.className = 'chart-legend-item';
+                span.innerHTML =
+                    `<span class="dot" style="background:${item.active ? item.color : 'rgba(255,255,255,0.08)'}"></span> ${item.label}`;
+                span.style.opacity = item.active ? '1' : '0.25';
+                container.appendChild(span);
+            });
+        }
+
+        // ============================================================
+        //  重置
+        // ============================================================
+
+        function resetTest() {
+            state.currentQuestion = 0;
+            state.answers = [];
+            state.isComplete = false;
+            state.result = null;
+            state.questions = [];
+            showPage('home');
+            $('progressFill').style.width = '0%';
+            $('progressText').textContent = '0/15';
+            document.getElementById('mainCard').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // ============================================================
+        //  初始化
+        // ============================================================
+
+        function init() {
+            // 开始按钮：生成打乱题目并启动
+            $('btnStart').addEventListener('click', () => {
+                // 生成新的打乱副本
+                state.questions = createShuffledQuestions();
+                state.currentQuestion = 0;
+                state.answers = [];
+                showPage('quiz');
+                renderQuestion(0);
+                document.getElementById('mainCard').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+
+            $('btnRestart').addEventListener('click', resetTest);
+
+            let resizeTimer;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(() => {
+                    if (state.isComplete && state.result) {
+                        const scores = computeDimensionScores(state.answers);
+                        renderRadarChart(scores, state.result.color);
+                    }
+                }, 300);
+            });
+
+            showPage('home');
+        }
+
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
